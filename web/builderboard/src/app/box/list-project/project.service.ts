@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Connection} from '../../util/connection';
 import {Project} from '../../db/entities/project';
+import {User} from '../../db/entities/user';
 
 @Injectable()
 export class ProjectService {
@@ -39,9 +40,9 @@ export class ProjectService {
     );
     return loadedObjects;*/
     // TODO Comment out because it's not working, now the system will be mocked up to do first of all the basic implementation of the ui
-    return [new Project(1, 12342, 'Test 1', Date.now(), Date.now(), false, 0, 0),
-      new Project(2, 165485, 'Test 2', Date.now(), Date.now(), false, 0, 0),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0),
-      new Project(4, 332152, 'Test 4', Date.now(), Date.now(), false, 0, 0)];
+    return [new Project(1, 12342, 'Test 1', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(2, 165485, 'Test 2', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(4, 332152, 'Test 4', Date.now(), Date.now(), false, 0, 0, new User(2, 'Robert', 'Strohmeier'))];
   }
 }

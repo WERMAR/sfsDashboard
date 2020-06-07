@@ -4,7 +4,7 @@ import {Project} from '../../../db/entities/project';
 @Component({
   selector: 'app-project-item',
   templateUrl: './project-item.component.html',
-  styles: []
+  styleUrls: ['./project-item.component.css']
 })
 export class ProjectItemComponent implements OnInit {
 

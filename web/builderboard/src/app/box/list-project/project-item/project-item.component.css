@@ -1,0 +1,41 @@
+.box {
+  -webkit-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.32);
+  box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.32);
+  background-color: rgb(245, 122, 122);
+  border-radius: 50px;
+  height:auto;
+  width:auto;
+  max-height: 80px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.box .projectDescription {
+  position: relative;
+  top:15px;
+  left:20px;
+  color:white;
+}
+
+.box .responsiblePerson {
+  position: relative;
+  top:15px;
+  left:20px;
+  font-weight: bolder;
+}
+
+.box .projectDescription p {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.detailInformationBox .start{
+  position: relative;
+  left:20px;
+}
+
+.detailInformationBox .end{
+  position: relative;
+  left:20px;
+}
