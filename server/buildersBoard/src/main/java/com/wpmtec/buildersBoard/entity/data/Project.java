@@ -50,6 +50,10 @@ public class Project {
   @Column(name = "end_reminder")
   private int endReminder;
 
+  @ManyToOne
+  @JoinColumn(name = "responsible_person")
+  private User responsiblePerson;
+
   public Long getId() {
     return id;
   }
