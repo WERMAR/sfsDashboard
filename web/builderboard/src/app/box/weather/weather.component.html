@@ -1,0 +1,29 @@
+<div class="container positionInBox">
+  <div class="row">
+    <div class="col-xl">
+      <p style="font-weight: bold; font-size: 70px">{{ time | date: 'hh:mm' }}</p>
+    </div>
+    <div class="col-xl">
+      <div class="align-content-center align-middle positionOfComponent">
+        <div id="divWeatherMain">
+          <div *ngIf="weatherData?.isDay" class="weatherWidgetRow">
+            <i class="wi wi-day-sunny iconSize"></i>
+          </div>
+          <div *ngIf="!weatherData?.isDay" class="weatherWidgetRow">
+            <i class="wi wi-night-clear iconSize"></i>
+          </div>
+          <div class="weatherWidgetRow cloudDiv">
+            <i class="wi wi-cloud cloud iconSize"></i>
+          </div>
+          <div class="weatherWidgetRow" style="font-size: 2.5vw;margin-top: 5px;">{{weatherData?.tempCelcius}}°</div>
+          <div class="weatherWidgetRow" style="font-size: 1.5vw;">{{weatherData?.tempMin}}° / {{weatherData?.tempMax}}°
+          </div>
+          <div class="weatherWidgetRow" style="font-size: 2vw;">Gefühlt: {{weatherData?.tempFeeling}}°</div>
+          <div class="weatherWidgetRow" style="font-size: 2.5vw;margin-top: 10px;">{{weatherData?.name}}</div>
+          <div class="weatherWidgetRow" style="font-size: 1.5vw;">Luftfeuchtigkeit: {{weatherData?.main.humidity}}%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
