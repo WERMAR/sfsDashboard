@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 
 @Component({
   selector: 'app-box',
@@ -7,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoxComponent implements OnInit {
 
-  constructor() { }
+  addProjectDialogRef: MatDialogRef<AddProjectDialogComponent>;
+
+  constructor(private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     console.log('Box-Component called');
+  }
+
+  addProjectToList() {
+    this.addProjectDialogRef = this.matDialog.open(AddProjectDialogComponent);
   }
 
 }

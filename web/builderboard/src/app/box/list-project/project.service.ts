@@ -43,6 +43,14 @@ export class ProjectService {
     return [new Project(1, 12342, 'Test 1', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
       new Project(2, 165485, 'Test 2', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
       new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
+      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
       new Project(4, 332152, 'Test 4', Date.now(), Date.now(), false, 0, 0, new User(2, 'Robert', 'Strohmeier'))];
   }
 }

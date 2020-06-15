@@ -1,0 +1,25 @@
+.box {
+  -webkit-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.32);
+  box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.32);
+  border-radius: 50px;
+  height:auto;
+  max-height: 99vh;
+  width:auto;
+  padding: 25px 15px 25px 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 25px;
+}
+
+.projectList {
+  height:93vh;
+  max-height: inherit;
+  overflow: auto;
+}
+
+.weatherComponent {
+  height:50vh;
+  max-height: inherit;
+  overflow: auto;
+}
