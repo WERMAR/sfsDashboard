@@ -13,14 +13,14 @@
             <i class="wi wi-night-clear iconSize"></i>
           </div>
           <div class="weatherWidgetRow cloudDiv">
-            <i class="wi wi-cloud cloud iconSize"></i>
+              <i class="wi wi-cloud cloud iconSize"></i>
           </div>
           <div class="weatherWidgetRow" style="font-size: 2.5vw;margin-top: 5px;">{{weatherData?.tempCelcius}}°</div>
-          <div class="weatherWidgetRow" style="font-size: 1.5vw;">{{weatherData?.tempMin}}° / {{weatherData?.tempMax}}°
+          <div class="weatherWidgetRow" style="font-size: 1.5vw;margin-top:4vh">{{weatherData?.tempMin}}° / {{weatherData?.tempMax}}°
           </div>
-          <div class="weatherWidgetRow" style="font-size: 2vw;">Gefühlt: {{weatherData?.tempFeeling}}°</div>
-          <div class="weatherWidgetRow" style="font-size: 2.5vw;margin-top: 10px;">{{weatherData?.name}}</div>
-          <div class="weatherWidgetRow" style="font-size: 1.5vw;">Luftfeuchtigkeit: {{weatherData?.main.humidity}}%
+          <div class="weatherWidgetRow" style="font-size: 2vw;margin-top:4vh">Gefühlt: {{weatherData?.tempFeeling}}°</div>
+          <div class="weatherWidgetRow" style="font-size: 2.5vw;margin-top:4vh">{{weatherData?.name}}</div>
+          <div class="weatherWidgetRow" style="font-size: 1.5vw;margin-top:4vh">Luftfeuchtigkeit: {{weatherData?.main.humidity}}%
           </div>
         </div>
       </div>
