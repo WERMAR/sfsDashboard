@@ -13,6 +13,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { AddProjectDialogComponent } from './box/add-project-dialog/add-project-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddProjectDialogComponent } from './box/add-project-dialog/add-project-
     BrowserAnimationsModule,
     MatButtonToggleModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   entryComponents: [AddProjectDialogComponent],
   providers: [ProjectService],
