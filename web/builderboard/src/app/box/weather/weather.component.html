@@ -6,13 +6,13 @@
     <div class="col-xl">
       <div class="align-content-center align-middle positionOfComponent">
         <div id="divWeatherMain">
-          <div *ngIf="weatherData?.isDay" class="weatherWidgetRow">
-            <i class="wi wi-day-sunny iconSize"></i>
+          <div *ngIf="weatherData?.isDay" class="weatherWidgetRow" [ngClass]="{'withOutCloudMargin': !weatherData?.cloud}" >
+            <i class="wi wi-day-sunny iconSize" style="margin-top: 1.4vh;"></i>
           </div>
-          <div *ngIf="!weatherData?.isDay" class="weatherWidgetRow">
-            <i class="wi wi-night-clear iconSize"></i>
+          <div *ngIf="!weatherData?.isDay" class="weatherWidgetRow" [ngClass]="{'withOutCloudMargin': !weatherData?.cloud}">
+            <i class="wi wi-night-clear iconSize" style="margin-top: 1.4vh;"></i>
           </div>
-          <div class="weatherWidgetRow cloudDiv">
+          <div *ngIf="weatherData?.cloud" class="weatherWidgetRow cloudDiv">
               <i class="wi wi-cloud cloud iconSize"></i>
           </div>
           <div class="weatherWidgetRow" style="font-size: 2.5vw;margin-top: 5px;">{{weatherData?.tempCelcius}}°</div>

@@ -65,3 +65,7 @@
 .iconSize {
   font-size: 5.5vh
 }
+
+.withOutCloudMargin {
+  margin-bottom: 2.5vh;
+}

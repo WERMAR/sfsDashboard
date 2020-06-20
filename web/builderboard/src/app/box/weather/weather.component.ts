@@ -38,11 +38,10 @@ export class WeatherComponent implements OnInit {
       isDay: true
     };
     this.getWeatherData();
-    console.log(this.tmpWeatherData);
   }
 
   getWeatherData() {
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=berlin&appid=ff1bc4683fc7325e9c57e586c20cc03e')
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Aschaffenburg&appid=ff1bc4683fc7325e9c57e586c20cc03e')
       .then(response => response.json())
       .then(data => {
         this.setWeatherData(data);
@@ -59,13 +58,15 @@ export class WeatherComponent implements OnInit {
     this.tmpWeatherData.temp_min = (this.tmpWeatherData.main.temp_min - 273.15).toFixed(0);
     this.tmpWeatherData.temp_max = (this.tmpWeatherData.main.temp_max - 273.15).toFixed(0);
     this.tmpWeatherData.temp_feels_like = (this.tmpWeatherData.main.feels_like - 273.15).toFixed(0);
+
     this.weatherData = new WeatherEntity(this.tmpWeatherData.isDay,
       this.tmpWeatherData.temp_celcius,
       this.tmpWeatherData.temp_min,
       this.tmpWeatherData.temp_max,
       this.tmpWeatherData.temp_feels_like,
       this.tmpWeatherData.sunset_time,
-      this.tmpWeatherData.main, this.tmpWeatherData.name)
-    ;
+      this.tmpWeatherData.main,
+      this.tmpWeatherData.name,
+      data.clouds.all > 50);
   }
 }
