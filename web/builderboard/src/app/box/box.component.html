@@ -2,13 +2,13 @@
   <div class="row h-100 justify-content-center align-items-center">
     <div class="col-xl box">
       <div class="projectList">
-        <button mat-mini-fab color="primary" (click)="">
+        <button mat-mini-fab color="primary" (click)="openAddProjectDialog()">
           <mat-icon>add</mat-icon>
         </button>
         <app-list-project></app-list-project>
       </div>
     </div>
-    <div class="col-xl box">
+    <div class="col-xl box" style="margin-right:25px">
       <div class="weatherComponent">
         <app-weather></app-weather>
       </div>

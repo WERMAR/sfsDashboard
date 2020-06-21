@@ -9,8 +9,6 @@ import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog
 })
 export class BoxComponent implements OnInit {
 
-  addProjectDialogRef: MatDialogRef<AddProjectDialogComponent>;
-
   constructor(private matDialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -18,7 +16,17 @@ export class BoxComponent implements OnInit {
   }
 
   addProjectToList() {
-    this.addProjectDialogRef = this.matDialog.open(AddProjectDialogComponent);
+  }
+
+  openAddProjectDialog() {
+    const addProjectDialogRef = this.matDialog.open(AddProjectDialogComponent, {
+      width: 'auto',
+      minWidth: '30vw'
+    });
+
+    addProjectDialogRef.afterClosed().subscribe(result => {
+      alert('Dialog was closed');
+    });
   }
 
 }
