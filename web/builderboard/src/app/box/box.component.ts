@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 
 @Component({
@@ -9,13 +9,15 @@ import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog
 })
 export class BoxComponent implements OnInit {
 
-  constructor(private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     console.log('Box-Component called');
   }
 
   addProjectToList() {
+    // TODO implement in step 'functionality implementation of add project dialog'
   }
 
   openAddProjectDialog() {
@@ -25,8 +27,10 @@ export class BoxComponent implements OnInit {
     });
 
     addProjectDialogRef.afterClosed().subscribe(result => {
-      alert('Dialog was closed');
-    });
+        console.log('Result of Dialog');
+        console.log(result);
+      }
+    );
   }
 
 }
