@@ -39,3 +39,15 @@
   position: relative;
   left:20px;
 }
+
+.icon {
+  position: relative;
+  top:1.3vh;
+  color:white;
+  align-content: center;
+}
+
+.iconsPosition {
+  position: relative;
+  right:-2.0vh;
+}
