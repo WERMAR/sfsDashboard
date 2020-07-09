@@ -7,38 +7,46 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-// TODO Need an DTO and Date must be an Unix-Timestamp
 @RestController
 @RequestMapping("/project")
-public class ProjectController {
+public class ProjectController implements RestControllerInterface<Project> {
 
-  private final ProjectService projectService;
+    private final ProjectService projectService;
 
-  public ProjectController(ProjectService projectService) {
-    this.projectService = projectService;
-  }
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
-  @GetMapping()
-  @ResponseBody()
-  public List<Project> loadAll() {
-    return projectService.getAll();
-  }
+    @GetMapping()
+    @ResponseBody()
+    public List<Project> loadAll() {
+        return projectService.getAll();
+    }
 
-  @GetMapping("/{id}")
-  @ResponseBody
-  public Project forId(@PathVariable("id") Long id) {
-    return projectService.getForId(id);
-  }
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Project forId(@PathVariable("id") Long id) {
+        return projectService.getForId(id);
+    }
 
-  @PutMapping("")
-  @ResponseBody
-  public Project update(@RequestBody Project project) {
-    return projectService.updateProject(project);
-  }
+    @PutMapping("")
+    @ResponseBody
+    public Project update(@RequestBody Project project) {
+        return projectService.updateProject(project);
+    }
 
-  @PostMapping()
-  @ResponseBody
-  public Project create(@RequestBody Project project) {
-    return projectService.createProject(project);
-  }
+    @PostMapping()
+    @ResponseBody
+    public Project create(@RequestBody Project project) {
+        return projectService.createProject(project);
+    }
+
+    @Override
+    public boolean validateInput(Project inputData) {
+        if (!inputData.isReminder()) {
+            return inputData.getStartReminder() == 0 && inputData.getEndReminder() == 0;
+        } else {
+            return inputData.getStartReminder() > 0 || inputData.getEndReminder() > 0;
+        }
+    }
 }
