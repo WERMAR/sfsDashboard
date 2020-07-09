@@ -1,29 +1,45 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Project} from '../../db/entities/project';
 import {User} from '../../db/entities/user';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-add-project-dialog',
+  selector: 'app-project-dialog',
   templateUrl: './add-project-dialog.component.html',
   styleUrls: ['./add-project-dialog.component.css']
 })
-export class AddProjectDialogComponent {
-
+export class AddProjectDialogComponent implements OnInit {
   public project: Project = new Project(null, null, null, null, null, null, null, null, null);
   public times = [1, 2, 3, 4, 5];
-  public users = this.createDummyUsers();
+  formControl = new FormControl();
+  public usersNames: string[] = ['Jens Wernisch', 'Robert Strohmeier', 'Jenny Sturm', 'Siglinde Wernisch', 'Sandra Ederer'];
+  filteredOptions: Observable<string[]>;
 
   constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>) {
   }
 
+  ngOnInit(): void {
+    this.filteredOptions = this.formControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+  }
   updateReminder() {
     this.project.reminder = !this.project.reminder;
   }
 
-  private createDummyUsers() {
-    return Array.of(new User(1, 'Jens', 'Wernisch'),
-      new User(1, 'Robert', 'Strohmeier'));
+  hideDialog() {
+    this.dialogRef.close();
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.usersNames.filter(user => user.toLowerCase().includes(filterValue));
   }
 }

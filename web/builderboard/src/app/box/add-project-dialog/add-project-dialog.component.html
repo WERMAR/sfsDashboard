@@ -55,12 +55,17 @@
           </mat-form-field>
         </div>
         <mat-form-field>
-          <mat-label>Verantwortlicher</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let user of users" [value]="user">
-              {{user.firstName}} {{user.lastName}}
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Number"
+                 matInput
+                 [matAutocomplete]="auto"
+                 [formControl]="formControl">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of filteredOptions | async" [value]="user">
+              {{ user }}
             </mat-option>
-          </mat-select>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
     </div>
@@ -69,7 +74,7 @@
 <div mat-dialog-actions>
   <div class="container">
     <div class="row">
-      <button mat-button class="col">Abbrechen</button>
+      <button mat-button class="col" (click)="hideDialog()">Abbrechen</button>
       <button mat-button [mat-dialog-close]="project.projectDescription" class="col float-right">Hinzufügen</button>
     </div>
   </div>

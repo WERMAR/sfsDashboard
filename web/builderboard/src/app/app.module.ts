@@ -15,12 +15,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {AddProjectDialogComponent} from './box/add-project-dialog/add-project-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
+import {EditProjectDialogComponent} from './box/edit-project-dialog/edit-project-dialog.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {MatSelectModule} from '@angular/material/select';
     ListProjectComponent,
     ProjectItemComponent,
     WeatherComponent,
-    AddProjectDialogComponent
+    AddProjectDialogComponent,
+    EditProjectDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
   entryComponents: [AddProjectDialogComponent],
   providers: [ProjectService],
