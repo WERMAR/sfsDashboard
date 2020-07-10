@@ -1,15 +1,13 @@
 package com.wpmtec.buildersBoard.entity.data;
 
 import com.sun.istack.Nullable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "project")
 @NamedQueries({
