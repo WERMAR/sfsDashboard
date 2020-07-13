@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -14,7 +15,7 @@ import java.util.Date;
         @NamedQuery(name = "Project.getAll", query = "Select p from Project p"),
         @NamedQuery(name = "Project.getForId", query = "Select p from Project p where p.id =:id")
 })
-public class Project {
+public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +51,7 @@ public class Project {
     @Column(name = "end_reminder")
     private int endReminder;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "responsible_person")
     private User responsiblePerson;
 }

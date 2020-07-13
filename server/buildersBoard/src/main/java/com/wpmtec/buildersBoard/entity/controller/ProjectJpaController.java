@@ -33,23 +33,12 @@ public class ProjectJpaController {
   }
 
   /**
-   * save a new created project
-   * @param project - created project
-   * @return - the saved project
-   */
-  @Transactional
-  public Project save(Project project) {
-    entityManager.persist(project);
-    return project;
-  }
-
-  /**
    * update the project
    * @param project - modified project
    * @return - updated project
    */
   @Transactional
-  public Project update(Project project) {
+  public Project saveOrUpdate(Project project) {
     entityManager.merge(project);
     return project;
   }

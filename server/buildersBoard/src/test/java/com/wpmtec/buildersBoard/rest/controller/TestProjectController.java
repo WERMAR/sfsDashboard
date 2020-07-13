@@ -1,7 +1,10 @@
 package com.wpmtec.buildersBoard.rest.controller;
 
+import com.wpmtec.buildersBoard.entity.controller.ProjectJpaController;
+import com.wpmtec.buildersBoard.entity.controller.UserJpaController;
 import com.wpmtec.buildersBoard.entity.data.Project;
 import com.wpmtec.buildersBoard.services.ProjectService;
+import com.wpmtec.buildersBoard.services.UserService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -30,7 +33,11 @@ public class TestProjectController {
     @ParameterizedTest(name = "Test validation of Project Data -> expected value: {1}")
     @MethodSource("createTestData")
     public void testValidationMethod(Project project, boolean expectedResult) {
-        ProjectController projectController = new ProjectController(new ProjectService());
+        ProjectController projectController = new ProjectController(createProjectService());
         assertEquals(expectedResult, projectController.validateInput(project));
+    }
+
+    private ProjectService createProjectService() {
+        return new ProjectService(new ProjectJpaController());
     }
 }
