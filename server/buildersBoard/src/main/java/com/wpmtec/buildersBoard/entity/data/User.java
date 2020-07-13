@@ -1,14 +1,22 @@
 package com.wpmtec.buildersBoard.entity.data;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+@NamedQueries({
+
+        @NamedQuery(name = "User.getAll", query = "Select u from User u"),
+        @NamedQuery(name = "User.getForId", query = "Select u from User u where u.id = :id"),
+        @NamedQuery(name = "User.findForName", query = "Select u from User u where u.firstName = :firstName and u.lastName = :lastName")
+})
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +27,4 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
-    @OneToMany(mappedBy = "responsiblePerson")
-    private List<Project> projects;
-}
+    }
