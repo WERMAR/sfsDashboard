@@ -1,6 +1,7 @@
-package com.wpmtec.buildersBoard.rest.controller;
+package com.wpmtec.buildersBoard.rest.controller.project;
 
 import com.wpmtec.buildersBoard.entity.data.Project;
+import com.wpmtec.buildersBoard.rest.controller.RestControllerInterface;
 import com.wpmtec.buildersBoard.services.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class ProjectController implements RestControllerInterface<Project> {
         return projectService.getForId(id);
     }
 
-    @PutMapping("")
+    @PutMapping
     @ResponseBody
     public Project update(@RequestBody Project project) {
         return projectService.saveOrUpdate(project);
