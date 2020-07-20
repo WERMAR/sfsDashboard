@@ -24,6 +24,7 @@ public class ProjectController implements RestControllerInterface<Project> {
     @GetMapping()
     @ResponseBody()
     public List<Project> loadAll() {
+        log.info("Load all Projects were triggered");
         return projectService.getAll();
     }
 
