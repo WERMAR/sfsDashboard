@@ -1,16 +1,38 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Project} from '../../db/entities/project';
-import {User} from '../../db/entities/user';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-project-dialog',
   templateUrl: './add-project-dialog.component.html',
-  styleUrls: ['./add-project-dialog.component.css']
+  styleUrls: ['./add-project-dialog.component.css'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class AddProjectDialogComponent implements OnInit {
   public project: Project = new Project(null, null, null, null, null, null, null, null, null);
@@ -29,6 +51,7 @@ export class AddProjectDialogComponent implements OnInit {
         map(value => this._filter(value))
       );
   }
+
   updateReminder() {
     this.project.reminder = !this.project.reminder;
   }
