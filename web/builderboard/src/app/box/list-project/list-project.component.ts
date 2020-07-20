@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from './project.service';
 import {Project} from '../../db/entities/project';
+import {User} from '../../db/entities/user';
 
 @Component({
   selector: 'app-list-project',
@@ -18,12 +19,23 @@ export class ListProjectComponent implements OnInit {
     return this._projects;
   }
 
-  set projects(value: Project[]) {
-    this._projects = value;
+  loadData() {
+    this.service.fetchData().subscribe(res => {
+        this._projects = res;
+        for (const project of this._projects) {
+          project.responsiblePerson = new User(project.responsiblePerson.id,
+            project.responsiblePerson.firstName, project.responsiblePerson.lastName);
+        }
+        console.log(this._projects);
+      },
+      err => console.log(err)
+    );
   }
 
   ngOnInit(): void {
+
     console.log('Project List Component called');
-    this._projects = this.service.fetchData();
+    this.loadData();
+    setInterval(() => this.loadData(), 5000);
   }
 }

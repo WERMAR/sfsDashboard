@@ -12,7 +12,8 @@ export class Project {
   endReminder: number;
   responsiblePerson: User;
 
-  constructor(id: number, orderNumber: number, projectDescription: string, start: number, end: number, reminder: boolean, startReminder: number, endReminder: number, responsiblePerson: User) {
+  constructor(id: number, orderNumber: number, projectDescription: string, start: number,
+              end: number, reminder: boolean, startReminder: number, endReminder: number, responsiblePerson: User) {
     this.id = id;
     this.orderNumber = orderNumber;
     this.projectDescription = projectDescription;

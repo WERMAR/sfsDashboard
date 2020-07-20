@@ -9,7 +9,7 @@ export class User {
     this.lastName = lastName;
   }
 
-  public getNameOfUser(): string {
-    return this.firstName + ' ' + this.lastName;
+  public static getNameOfUser(firstName: string, lastName: string): string {
+    return firstName + ' ' + lastName;
   }
 }

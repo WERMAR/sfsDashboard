@@ -4,7 +4,7 @@
       <div class="col-10 start">
         <div class="row">
           <div class="col-sm projectDescription"><p>{{ project.projectDescription }}</p></div>
-          <div class="col-sm responsiblePerson"><p>Verantwortlicher: {{ project.responsiblePerson.getNameOfUser()}}</p>
+          <div class="col-sm responsiblePerson"><p>Verantwortlicher: {{ getNameOfUser(project) }}</p>
           </div>
         </div>
         <div class="row">
@@ -15,10 +15,14 @@
       <div class="col end">
         <div class="row iconsPosition">
           <div class="col-sm-3 icon">
-            <button mat-icon-button aria-hidden="false" (click)="openEditDialog()"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button aria-hidden="false" (click)="openEditDialog()">
+              <mat-icon>edit</mat-icon>
+            </button>
           </div>
           <div class="col-sm icon">
-            <button mat-icon-button aria-hidden="false" (click)="deleteItem()"><mat-icon>delete_forever</mat-icon></button>
+            <button mat-icon-button aria-hidden="false" (click)="deleteItem()">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
           </div>
         </div>
       </div>

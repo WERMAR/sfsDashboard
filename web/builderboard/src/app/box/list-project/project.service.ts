@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Connection} from '../../util/connection';
 import {Project} from '../../db/entities/project';
-import {User} from '../../db/entities/user';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class ProjectService {
@@ -24,33 +25,17 @@ export class ProjectService {
    *
    * @return array of Project
    */
-  public fetchData(): Project[] {
-    /*let loadedObjects: Project[] = null;
+  public fetchData(): Observable<Project[]> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept' : '*!/!*'
+        'Content-Type': 'application/json'
       })
     };
-    this.http.get<Project[]>(this.currentConnectionURL + '/project', httpOptions).subscribe(
-      res => (projects: Project[]) => {
-        loadedObjects = projects;
-      },
-      err => console.log(err)
-    );
-    return loadedObjects;*/
-    // TODO Comment out because it's not working, now the system will be mocked up to do first of all the basic implementation of the ui
-    return [new Project(1, 12342, 'Test 1', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(2, 165485, 'Test 2', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(3, 213514, 'Test 3', Date.now(), Date.now(), false, 0, 0, new User(1, 'Jens', 'Wernisch')),
-      new Project(4, 332152, 'Test 4', Date.now(), Date.now(), false, 0, 0, new User(2, 'Robert', 'Strohmeier'))];
+    return this.http.get<Project[]>(this.currentConnectionURL + '/project', httpOptions).pipe(
+      map((data: Project[]) => data.map(res => {
+        return new Project(res.id, res.orderNumber, res.projectDescription, res.start,
+          res.end, res.reminder, res.startReminder, res.endReminder, res.responsiblePerson);
+        // return Object.assign(new Project(), res);
+      })));
   }
 }
