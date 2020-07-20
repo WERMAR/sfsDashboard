@@ -18,14 +18,14 @@
         <br>
         <mat-form-field>
           <mat-label>Projektstart</mat-label>
-          <input matInput matNativeControl [matDatepicker]="startDate">
+          <input matInput matNativeControl [matDatepicker]="startDate" [(ngModel)]="data.start">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
         <br>
         <mat-form-field>
           <mat-label>Projektende</mat-label>
-          <input matInput matNativeControl [matDatepicker]="endDate">
+          <input matInput matNativeControl [matDatepicker]="endDate"  [(ngModel)]="data.end">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
