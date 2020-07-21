@@ -32,5 +32,4 @@ export class BoxComponent implements OnInit {
       }
     );
   }
-
 }

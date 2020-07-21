@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Host, Input, OnInit} from '@angular/core';
 import {Project} from '../../../db/entities/project';
 import {MatDialog} from '@angular/material/dialog';
 import {EditProjectDialogComponent} from '../../edit-project-dialog/edit-project-dialog.component';
 import {User} from '../../../db/entities/user';
+import {ListProjectComponent} from '../list-project.component';
 
 @Component({
   selector: 'app-project-item',
@@ -13,7 +14,7 @@ export class ProjectItemComponent implements OnInit {
 
   @Input() project: Project;
 
-  constructor(private matDialog: MatDialog) {
+  constructor(@Host() private parent: ListProjectComponent, private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class ProjectItemComponent implements OnInit {
   }
 
   deleteItem() {
-    // TODO will implement in a later step of implementation
+    console.log('delete item was triggered');
+    this.parent.delete(this.project);
   }
 }

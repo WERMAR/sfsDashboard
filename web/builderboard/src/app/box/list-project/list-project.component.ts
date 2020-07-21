@@ -11,6 +11,7 @@ import {User} from '../../db/entities/user';
 export class ListProjectComponent implements OnInit {
 
   constructor(private service: ProjectService) {
+
   }
 
   private _projects: Project[] = [];
@@ -30,6 +31,11 @@ export class ListProjectComponent implements OnInit {
       },
       err => console.log(err)
     );
+  }
+
+  delete(project: Project) {
+    this.service.delete(project.id).subscribe();
+    this._projects.splice(this._projects.indexOf(project), 1);
   }
 
   ngOnInit(): void {

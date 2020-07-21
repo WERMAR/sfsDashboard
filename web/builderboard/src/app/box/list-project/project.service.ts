@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class ProjectService {
 
-  private currentConnectionURL = null;
+  private readonly currentConnectionURL = null;
 
   constructor(private http: HttpClient) {
     console.log('ProjectService constructor is called');
@@ -35,7 +35,10 @@ export class ProjectService {
       map((data: Project[]) => data.map(res => {
         return new Project(res.id, res.orderNumber, res.projectDescription, res.start,
           res.end, res.reminder, res.startReminder, res.endReminder, res.responsiblePerson);
-        // return Object.assign(new Project(), res);
       })));
+  }
+
+  public delete(id: number): Observable<Project> {
+    return this.http.delete<Project>(this.currentConnectionURL + '/project/' + id);
   }
 }
