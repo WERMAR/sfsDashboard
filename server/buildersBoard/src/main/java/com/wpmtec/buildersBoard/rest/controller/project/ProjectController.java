@@ -3,9 +3,11 @@ package com.wpmtec.buildersBoard.rest.controller.project;
 import com.wpmtec.buildersBoard.entity.data.Project;
 import com.wpmtec.buildersBoard.rest.controller.RestControllerInterface;
 import com.wpmtec.buildersBoard.services.ProjectService;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.NoResultException;
 import javax.validation.ValidationException;
 import java.util.List;
 
@@ -47,6 +49,16 @@ public class ProjectController implements RestControllerInterface<Project> {
             return projectService.saveOrUpdate(project);
         log.warn("Validation of data failed -> cause reminder configuration is wrong");
         throw new ValidationException("Reminder configuration is not valid");
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) throws NotFoundException {
+        try {
+            Project project = this.projectService.getForId(id);
+            this.projectService.remove(project);
+        } catch (NoResultException nre) {
+            throw new NotFoundException("Project for id " + id + " not found");
+        }
     }
 
     @Override

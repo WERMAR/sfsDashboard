@@ -12,6 +12,7 @@ import java.util.List;
 public class ProjectService {
 
     private final ProjectJpaController jpaController;
+
     public ProjectService(ProjectJpaController jpaController) {
         this.jpaController = jpaController;
     }
@@ -23,7 +24,7 @@ public class ProjectService {
      * @return - the created project
      */
     public Project saveOrUpdate(Project project) {
-     return jpaController.saveOrUpdate(project);
+        return jpaController.saveOrUpdate(project);
     }
 
     /**
@@ -46,4 +47,7 @@ public class ProjectService {
     }
 
 
+    public void remove(Project project) {
+        jpaController.remove(project);
+    }
 }

@@ -11,44 +11,45 @@ import java.util.List;
 @Service
 public class ProjectJpaController {
 
-  @PersistenceContext
-  EntityManager entityManager;
+    @PersistenceContext
+    EntityManager entityManager;
 
-  /**
-   * returns the complete list of projects
-   *
-   * @return - list of all projects
-   */
-  public List<Project> getAll() {
-    return entityManager.createNamedQuery("Project.getAll", Project.class).getResultList();
-  }
+    /**
+     * returns the complete list of projects
+     *
+     * @return - list of all projects
+     */
+    public List<Project> getAll() {
+        return entityManager.createNamedQuery("Project.getAll", Project.class).getResultList();
+    }
 
 
-  /**
-   * returns the project based on the id
-   */
-  public Project getProjectForId(Long id) {
-    return entityManager.createNamedQuery("Project.getForId", Project.class)
-      .setParameter("id", id).getSingleResult();
-  }
+    /**
+     * returns the project based on the id
+     */
+    public Project getProjectForId(Long id) {
+        return entityManager.createNamedQuery("Project.getForId", Project.class)
+                .setParameter("id", id).getSingleResult();
+    }
 
-  /**
-   * update the project
-   * @param project - modified project
-   * @return - updated project
-   */
-  @Transactional
-  public Project saveOrUpdate(Project project) {
-    entityManager.merge(project);
-    return project;
-  }
+    /**
+     * update the project
+     *
+     * @param project - modified project
+     * @return - updated project
+     */
+    @Transactional
+    public Project saveOrUpdate(Project project) {
+        entityManager.merge(project);
+        return project;
+    }
 
-  /**
-   * return if param based object exists
-   * @param project - searched object
-   * @return - boolean if exists
-   */
-  public boolean isExist(Project project) {
-    return entityManager.find(Project.class, project) != null;
-  }
+    /**
+     * removed the over given project object from database
+     * @param project - removed object
+     */
+    @Transactional
+    public void remove(Project project) {
+        this.entityManager.remove(project);
+    }
 }

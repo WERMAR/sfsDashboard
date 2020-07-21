@@ -1,11 +1,9 @@
 package com.wpmtec.buildersBoard.entity.data;
 
 import lombok.Data;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity
@@ -26,5 +24,4 @@ public class User implements Serializable {
 
     @Column(name = "first_name")
     private String firstName;
-
-    }
+}
