@@ -51,7 +51,7 @@ public class Project implements Serializable {
     @Column(name = "end_reminder")
     private int endReminder;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "responsible_person")
     private User responsiblePerson;
 }
