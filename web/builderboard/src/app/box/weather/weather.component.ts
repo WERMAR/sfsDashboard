@@ -41,7 +41,7 @@ export class WeatherComponent implements OnInit {
   }
 
   getWeatherData() {
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=Aschaffenburg&appid=ff1bc4683fc7325e9c57e586c20cc03e')
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Ergoldsbach&appid=ff1bc4683fc7325e9c57e586c20cc03e')
       .then(response => response.json())
       .then(data => {
         this.setWeatherData(data);
