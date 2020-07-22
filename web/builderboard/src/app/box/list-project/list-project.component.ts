@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectService} from './project.service';
+import {ProjectService} from '../../services/project.service';
 import {Project} from '../../db/entities/project';
 import {User} from '../../db/entities/user';
 import {MatDialog} from '@angular/material/dialog';
@@ -36,22 +36,23 @@ export class ListProjectComponent implements OnInit {
   }
 
   delete(project: Project) {
-    if (this.openConfirmationDialog(project.projectDescription)) {
-      this.service.delete(project.id).subscribe();
-      this._projects.splice(this._projects.indexOf(project), 1);
-    }
+    this.openConfirmationDialog(project);
   }
 
-  openConfirmationDialog(projectName: string): boolean {
+  executeDeletion(project: Project) {
+    this.service.delete(project.id).subscribe();
+    this._projects.splice(this._projects.indexOf(project), 1);
+  }
+
+  openConfirmationDialog(project: Project) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
-    dialogRef.componentInstance.confirmMessage = 'Sind Sie sicher, dass das Projekt "' + projectName + '" gelöscht werden soll?';
+    dialogRef.componentInstance.confirmMessage = 'Sind Sie sicher, dass das Projekt "' + project.projectDescription + '" gelöscht werden soll?';
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        return true;
+        this.executeDeletion(project);
       }
     });
-    return false;
   }
 
   ngOnInit(): void {

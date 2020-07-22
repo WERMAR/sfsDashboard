@@ -12,7 +12,7 @@ import java.io.Serializable;
 
         @NamedQuery(name = "User.getAll", query = "Select u from User u"),
         @NamedQuery(name = "User.getForId", query = "Select u from User u where u.id = :id"),
-        @NamedQuery(name = "User.findForName", query = "Select u from User u where u.firstName = :firstName and u.lastName = :lastName")
+        @NamedQuery(name = "User.findForName", query = "Select u from User u where u.firstName LIKE CONCAT('%',:firstName,'%') or u.lastName LIKE CONCAT('%',:lastName,'%')")
 })
 public class User implements Serializable {
     @Id

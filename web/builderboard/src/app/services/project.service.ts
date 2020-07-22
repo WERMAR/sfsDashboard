@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {Connection} from '../../util/connection';
-import {Project} from '../../db/entities/project';
+import {environment} from '../../environments/environment';
+import {Connection} from '../util/connection';
+import {Project} from '../db/entities/project';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 

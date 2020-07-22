@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {UserService} from '../../services/user.service';
 
 
 export const MY_FORMATS = {
@@ -38,10 +39,10 @@ export class AddProjectDialogComponent implements OnInit {
   public project: Project = new Project(null, null, null, null, null, null, null, null, null);
   public times = [1, 2, 3, 4, 5];
   formControl = new FormControl();
-  public usersNames: string[] = ['Jens Wernisch', 'Robert Strohmeier', 'Jenny Sturm', 'Siglinde Wernisch', 'Sandra Ederer'];
+  public usersNames: string[] = [];
   filteredOptions: Observable<string[]>;
 
-  constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -50,6 +51,7 @@ export class AddProjectDialogComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
+    this.fetchUserData();
   }
 
   updateReminder() {
@@ -64,5 +66,13 @@ export class AddProjectDialogComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.usersNames.filter(user => user.toLowerCase().includes(filterValue));
+  }
+
+  private fetchUserData() {
+    this.userService.fetchData().subscribe(res => {
+      for (const user of res) {
+        this.usersNames.push(user.firstName + ' ' + user.lastName);
+      }
+    });
   }
 }

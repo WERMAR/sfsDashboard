@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BoxComponent} from './box/box.component';
 import {ListProjectComponent} from './box/list-project/list-project.component';
-import {ProjectService} from './box/list-project/project.service';
+import {ProjectService} from './services/project.service';
 import {HttpClientModule} from '@angular/common/http';
 import {ProjectItemComponent} from './box/list-project/project-item/project-item.component';
 import {WeatherComponent} from './box/weather/weather.component';
@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {EditProjectDialogComponent} from './box/edit-project-dialog/edit-project-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import {UserService} from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     MatAutocompleteModule,
   ],
   entryComponents: [AddProjectDialogComponent],
-  providers: [ProjectService],
+  providers: [ProjectService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
