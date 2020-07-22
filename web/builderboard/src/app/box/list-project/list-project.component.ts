@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectService} from './project.service';
 import {Project} from '../../db/entities/project';
 import {User} from '../../db/entities/user';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-list-project',
@@ -10,7 +12,7 @@ import {User} from '../../db/entities/user';
 })
 export class ListProjectComponent implements OnInit {
 
-  constructor(private service: ProjectService) {
+  constructor(private service: ProjectService, private dialog: MatDialog) {
 
   }
 
@@ -34,13 +36,25 @@ export class ListProjectComponent implements OnInit {
   }
 
   delete(project: Project) {
-    this.service.delete(project.id).subscribe();
-    this._projects.splice(this._projects.indexOf(project), 1);
+    if (this.openConfirmationDialog(project.projectDescription)) {
+      this.service.delete(project.id).subscribe();
+      this._projects.splice(this._projects.indexOf(project), 1);
+    }
+  }
+
+  openConfirmationDialog(projectName: string): boolean {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+    dialogRef.componentInstance.confirmMessage = 'Sind Sie sicher, dass das Projekt "' + projectName + '" gelöscht werden soll?';
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        return true;
+      }
+    });
+    return false;
   }
 
   ngOnInit(): void {
-
-    console.log('Project List Component called');
     this.loadData();
     setInterval(() => this.loadData(), 5000);
   }

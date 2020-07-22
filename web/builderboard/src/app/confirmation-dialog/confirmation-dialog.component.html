@@ -1,0 +1,9 @@
+<h1 md-dialog-title>{{ confirmMessage }}</h1>
+<div mat-dialog-actions>
+  <div class="container">
+    <div class="row">
+      <button mat-button class="col" (click)="abort()">Abbrechen</button>
+      <button mat-button (click)="accept()" class="col float-right" cdkFocusInitial>Bestätigen</button>
+    </div>
+  </div>
+</div>

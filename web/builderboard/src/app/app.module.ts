@@ -23,6 +23,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {EditProjectDialogComponent} from './box/edit-project-dialog/edit-project-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     WeatherComponent,
     AddProjectDialogComponent,
     EditProjectDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

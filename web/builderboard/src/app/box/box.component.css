@@ -16,6 +16,7 @@
   height:93vh;
   max-height: inherit;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .weatherComponent {
