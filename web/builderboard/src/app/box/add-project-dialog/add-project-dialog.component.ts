@@ -7,6 +7,8 @@ import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {UserService} from '../../services/user.service';
+import {User} from '../../db/entities/user';
+import {Moment} from 'moment';
 
 
 export const MY_FORMATS = {
@@ -20,6 +22,17 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
+
+export class ProjectTransfer {
+  orderNumber: string;
+  projectDescription: string;
+  start: Moment;
+  end: Moment;
+  reminder: boolean;
+  startReminder: number;
+  endReminder: number;
+  responsiblePersonName: string;
+}
 
 @Component({
   selector: 'app-project-dialog',
@@ -36,13 +49,14 @@ export const MY_FORMATS = {
   ],
 })
 export class AddProjectDialogComponent implements OnInit {
-  public project: Project = new Project(null, null, null, null, null, null, null, null, null);
+  public projectTransfer: ProjectTransfer = new ProjectTransfer();
   public times = [1, 2, 3, 4, 5];
   formControl = new FormControl();
   public usersNames: string[] = [];
   filteredOptions: Observable<string[]>;
 
-  constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>, private userService: UserService) {
+  constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -55,16 +69,19 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   updateReminder() {
-    this.project.reminder = !this.project.reminder;
+    this.projectTransfer.reminder = !this.projectTransfer.reminder;
   }
 
   hideDialog() {
     this.dialogRef.close();
   }
 
+  createProject() {
+    console.log(this);
+  }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.usersNames.filter(user => user.toLowerCase().includes(filterValue));
   }
 

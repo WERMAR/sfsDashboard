@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from '../../services/project.service';
 import {Project} from '../../db/entities/project';
-import {User} from '../../db/entities/user';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationDialogComponent} from '../../confirmation-dialog/confirmation-dialog.component';
 
@@ -25,10 +24,10 @@ export class ListProjectComponent implements OnInit {
   loadData() {
     this.service.fetchData().subscribe(res => {
         this._projects = res;
-        for (const project of this._projects) {
-          project.responsiblePerson = new User(project.responsiblePerson.id,
+        /* for (const project of this._projects) {
+          project.responsiblePersonName = new User(project.responsiblePerson.id,
             project.responsiblePerson.firstName, project.responsiblePerson.lastName);
-        }
+        }*/
         console.log(this._projects);
       },
       err => console.log(err)
@@ -40,8 +39,10 @@ export class ListProjectComponent implements OnInit {
   }
 
   executeDeletion(project: Project) {
-    this.service.delete(project.id).subscribe();
-    this._projects.splice(this._projects.indexOf(project), 1);
+    if (!Number.isNaN(Number(project.orderNumber))) {
+      this.service.delete(Number(project.orderNumber)).subscribe();
+      this._projects.splice(this._projects.indexOf(project), 1);
+    }
   }
 
   openConfirmationDialog(project: Project) {

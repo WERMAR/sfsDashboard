@@ -2,7 +2,6 @@ import {Component, Host, Input, OnInit} from '@angular/core';
 import {Project} from '../../../db/entities/project';
 import {MatDialog} from '@angular/material/dialog';
 import {EditProjectDialogComponent} from '../../edit-project-dialog/edit-project-dialog.component';
-import {User} from '../../../db/entities/user';
 import {ListProjectComponent} from '../list-project.component';
 
 @Component({
@@ -21,7 +20,7 @@ export class ProjectItemComponent implements OnInit {
   }
 
   getNameOfUser(project: Project): string {
-    return User.getNameOfUser(project.responsiblePerson.firstName, project.responsiblePerson.lastName);
+    return project.responsiblePersonName;
   }
 
   openEditDialog() {

@@ -1,20 +1,22 @@
-import {User} from './user';
-
 export class Project {
 
-  id: number;
-  orderNumber: number;
+  orderNumber: string;
   projectDescription: string;
-  start: number;
-  end: number;
+  start: string;
+  end: string;
   reminder: boolean;
-  startReminder: number;
-  endReminder: number;
-  responsiblePerson: User;
+  startReminder: string;
+  endReminder: string;
+  responsiblePersonName: string;
 
-  constructor(id: number, orderNumber: number, projectDescription: string, start: number,
-              end: number, reminder: boolean, startReminder: number, endReminder: number, responsiblePerson: User) {
-    this.id = id;
+  constructor(orderNumber: string,
+              projectDescription: string,
+              start: string,
+              end: string,
+              reminder: boolean,
+              startReminder: string,
+              endReminder: string,
+              responsiblePersonName: string) {
     this.orderNumber = orderNumber;
     this.projectDescription = projectDescription;
     this.start = start;
@@ -22,6 +24,6 @@ export class Project {
     this.reminder = reminder;
     this.startReminder = startReminder;
     this.endReminder = endReminder;
-    this.responsiblePerson = responsiblePerson;
+    this.responsiblePersonName = responsiblePersonName;
   }
 }

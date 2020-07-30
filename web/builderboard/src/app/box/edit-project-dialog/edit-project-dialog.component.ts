@@ -48,8 +48,8 @@ export class EditProjectDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data.responsiblePerson != null) {
-      this.formControl.setValue(this.data.responsiblePerson.firstName + ' ' + this.data.responsiblePerson.lastName);
+    if (this.data.responsiblePersonName != null) {
+      this.formControl.setValue(this.data.responsiblePersonName);
     }
     this.filteredOptions = this.formControl.valueChanges
       .pipe(

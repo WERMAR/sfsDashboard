@@ -5,6 +5,7 @@ import {Connection} from '../util/connection';
 import {Project} from '../db/entities/project';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Converter} from '../util/Converter';
 
 @Injectable()
 export class ProjectService {
@@ -33,12 +34,20 @@ export class ProjectService {
     };
     return this.http.get<Project[]>(this.currentConnectionURL + '/project', httpOptions).pipe(
       map((data: Project[]) => data.map(res => {
-        return new Project(res.id, res.orderNumber, res.projectDescription, res.start,
-          res.end, res.reminder, res.startReminder, res.endReminder, res.responsiblePerson);
+        return new Project(res.orderNumber, res.projectDescription, res.start,
+          res.end, res.reminder, res.startReminder, res.endReminder, Converter.convertToNormalUserName(res.responsiblePersonName));
       })));
   }
 
-  public delete(id: number): Observable<Project> {
-    return this.http.delete<Project>(this.currentConnectionURL + '/project/' + id);
+  public create(project: Project) {
+    this.http.post<Project>(this.currentConnectionURL + '/project', project);
+  }
+
+  public update(project: Project) {
+    this.http.put<Project>(this.currentConnectionURL + '/project', project);
+  }
+
+  public delete(orderNumber: number): Observable<Project> {
+    return this.http.delete<Project>(this.currentConnectionURL + '/project/' + orderNumber);
   }
 }
