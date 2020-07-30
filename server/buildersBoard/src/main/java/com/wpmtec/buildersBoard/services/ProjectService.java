@@ -46,6 +46,10 @@ public class ProjectService {
         return jpaController.getProjectForId(id);
     }
 
+    public Project getForOrderNumber(long orderNumber) {
+        return jpaController.getProjectForOrderNumber(orderNumber);
+    }
+
 
     public void remove(Project project) {
         jpaController.remove(project);

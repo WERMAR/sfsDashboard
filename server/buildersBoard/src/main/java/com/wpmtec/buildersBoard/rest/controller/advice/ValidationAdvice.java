@@ -14,7 +14,7 @@ public class ValidationAdvice {
     @ResponseBody
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String validationHandler(ValidationException ve) {
+    String exceptionHandler(ValidationException ve) {
         return ve.getMessage();
     }
 }

@@ -46,10 +46,16 @@ public class ProjectJpaController {
 
     /**
      * removed the over given project object from database
+     *
      * @param project - removed object
      */
     @Transactional
     public void remove(Project project) {
         this.entityManager.remove(project);
+    }
+
+    public Project getProjectForOrderNumber(long orderNumber) {
+        return this.entityManager.createNamedQuery("Project.getForOrderNumber", Project.class)
+                .setParameter("orderNumber", orderNumber).getSingleResult();
     }
 }

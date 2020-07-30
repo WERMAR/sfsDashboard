@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.text.ParseException;
+
 @ControllerAdvice
-public class NotFoundAdvice {
+public class ParseExceptionAdvice {
 
     @ResponseBody
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ParseException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     String exceptionHandler(NotFoundException ve) {
-        return ve.getMessage();
+        return "5099 " + ve.getMessage();
     }
 }

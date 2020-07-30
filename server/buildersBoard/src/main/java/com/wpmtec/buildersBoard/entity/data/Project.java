@@ -13,14 +13,14 @@ import java.util.Date;
 @Table(name = "project")
 @NamedQueries({
         @NamedQuery(name = "Project.getAll", query = "Select p from Project p"),
-        @NamedQuery(name = "Project.getForId", query = "Select p from Project p where p.id =:id")
+        @NamedQuery(name = "Project.getForId", query = "Select p from Project p where p.id =:id"),
+        @NamedQuery(name = "Project.getForOrderNumber", query = "Select p from Project p where p.orderNumber = :orderNumber")
 })
 public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NotNull
     private Long id;
 
     @NotNull

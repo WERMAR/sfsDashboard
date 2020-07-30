@@ -1,15 +1,22 @@
 package com.wpmtec.buildersBoard.rest.controller.project;
 
 import com.wpmtec.buildersBoard.entity.data.Project;
+import com.wpmtec.buildersBoard.entity.data.User;
 import com.wpmtec.buildersBoard.rest.controller.RestControllerInterface;
+import com.wpmtec.buildersBoard.rest.controller.data.ProjectRestData;
 import com.wpmtec.buildersBoard.services.ProjectService;
+import com.wpmtec.buildersBoard.services.UserService;
+import com.wpmtec.buildersBoard.util.converter.ProjectConverter;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.persistence.NoResultException;
 import javax.validation.ValidationException;
+import java.text.ParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -18,46 +25,77 @@ import java.util.List;
 public class ProjectController implements RestControllerInterface<Project> {
 
     private final ProjectService projectService;
+    private final UserService userService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, UserService userService) {
         this.projectService = projectService;
+        this.userService = userService;
     }
 
     @GetMapping()
     @ResponseBody()
-    public List<Project> loadAll() {
+    public List<ProjectRestData> loadAll() {
         log.info("Load all Projects were triggered");
-        return projectService.getAll();
+        return projectService.getAll().stream().map(ProjectConverter::toRest).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Project forId(@PathVariable("id") Long id) {
-        return projectService.getForId(id);
+    public ProjectRestData forId(@PathVariable("id") Long id) {
+        Project project = projectService.getForId(id);
+        return ProjectConverter.toRest(project);
     }
 
     @PutMapping
     @ResponseBody
-    public Project update(@RequestBody Project project) {
-        return projectService.saveOrUpdate(project);
+    public ProjectRestData update(@RequestBody ProjectRestData restData) throws ParseException {
+        List<User> userForData = getUserForData(restData.getResponsiblePersonName());
+        User user = null;
+        if (userForData.size() == 1) {
+            user = userForData.get(0);
+        }
+        return ProjectConverter.toRest(projectService.saveOrUpdate(ProjectConverter.toDB(restData, user)));
     }
 
     @PostMapping()
     @ResponseBody
-    public Project create(@RequestBody Project project) {
-        if (validateInput(project))
-            return projectService.saveOrUpdate(project);
+    public ProjectRestData create(@RequestBody ProjectRestData restData) {
+        if (restData == null) {
+            log.warn("Input Data was null");
+            throw new NullPointerException();
+        }
+
+        List<User> userForData = getUserForData(restData.getResponsiblePersonName());
+        User user = null;
+        if (userForData.size() == 1) {
+            user = userForData.get(0);
+        }
+        Project project = null;
+        try {
+            project = ProjectConverter.toDB(restData, user);
+        } catch (ParseException e) {
+            log.error("While converting ProjectRestData to ProjectData ParseException was thrown", e);
+        }
+        if (project != null && validateInput(project))
+            return ProjectConverter.toRest(projectService.saveOrUpdate(project));
         log.warn("Validation of data failed -> cause reminder configuration is wrong");
         throw new ValidationException("Reminder configuration is not valid");
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) throws NotFoundException {
+    private List<User> getUserForData(String responsiblePersonName) {
+        int indexOfSplitter = responsiblePersonName.indexOf('@');
+        String firstName = responsiblePersonName.substring(0, indexOfSplitter);
+        String lastName = responsiblePersonName.substring(indexOfSplitter + 1);
+        return userService.loadForName(firstName, lastName);
+    }
+
+    @DeleteMapping("/{orderNumber}")
+    public void delete(@PathVariable("orderNumber") Long orderNumber) throws NotFoundException {
         try {
-            Project project = this.projectService.getForId(id);
+            Project project = this.projectService.getForOrderNumber(orderNumber);
             this.projectService.remove(project);
         } catch (NoResultException nre) {
-            throw new NotFoundException("Project for id " + id + " not found");
+            throw new NotFoundException("Project for orderNumber '" + orderNumber + "' not found");
         }
     }
 
