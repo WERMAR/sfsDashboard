@@ -39,3 +39,6 @@ The server project is for the backend system. There we use spring boot and for t
 
 # Web - Project Description
 The web project is the frontend system. Here we use Angular in the newest version.
+
+
+Current edit on: https://stackedit.io/appa
