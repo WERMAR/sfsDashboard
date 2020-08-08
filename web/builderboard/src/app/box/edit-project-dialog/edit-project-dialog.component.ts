@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Project} from '../../db/entities/project';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -39,9 +39,10 @@ export class EditProjectDialogComponent implements OnInit {
 
   @Input() editMode: boolean;
   public times = [1, 2, 3, 4, 5];
-  formControl = new FormControl();
   public usersNames: string[] = [];
   filteredOptions: Observable<string[]>;
+
+  formControl = new FormControl();
 
   constructor(private dialogRef: MatDialogRef<EditProjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Project, private userService: UserService) {
     console.log(data);

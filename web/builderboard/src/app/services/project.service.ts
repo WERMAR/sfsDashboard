@@ -40,7 +40,10 @@ export class ProjectService {
   }
 
   public create(project: Project) {
-    this.http.post<Project>(this.currentConnectionURL + '/project', project);
+    this.http.post<Project>(this.currentConnectionURL + '/project', project).subscribe(res => {
+      console.log(res);
+    });
+    console.log('Project was sending by the system');
   }
 
   public update(project: Project) {

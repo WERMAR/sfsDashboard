@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Project} from '../../db/entities/project';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {UserService} from '../../services/user.service';
-import {User} from '../../db/entities/user';
 import {Moment} from 'moment';
+import {ProjectService} from '../../services/project.service';
 
 
 export const MY_FORMATS = {
@@ -54,9 +54,24 @@ export class AddProjectDialogComponent implements OnInit {
   formControl = new FormControl();
   public usersNames: string[] = [];
   filteredOptions: Observable<string[]>;
+  projectFromGroup: FormGroup = AddProjectDialogComponent.setupFormGroup();
+  private _errorCreatingProject = false;
 
   constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>,
-              private userService: UserService) {
+              private userService: UserService, private dialog: MatDialog, private projectService: ProjectService) {
+  }
+
+  private static setupFormGroup() {
+    return new FormGroup({
+      orderNumber: new FormControl(''),
+      projectDescription: new FormControl(''),
+      start: new FormControl(''),
+      end: new FormControl(''),
+      reminder: new FormControl(''),
+      startReminder: new FormControl(''),
+      endReminder: new FormControl(''),
+      responsiblePersonName: new FormControl('')
+    });
   }
 
   ngOnInit(): void {
@@ -73,11 +88,39 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   hideDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(!this._errorCreatingProject);
   }
 
   createProject() {
-    console.log(this);
+    const projectValue = this.projectFromGroup.value;
+
+    const project = new Project(projectValue.orderNumber,
+      projectValue.projectDescription,
+      projectValue.start.format('YYYY-MM-DD'),
+      projectValue.end.format('YYYY-MM-DD'),
+      this.projectTransfer.reminder,
+      projectValue.startReminder,
+      projectValue.endReminder,
+      this.convertResponsiblePersonInFormat(projectValue.responsiblePersonName));
+
+    console.log(project);
+    if (!this._errorCreatingProject) {
+      this.saveProjectToServer(project);
+    }
+    this.hideDialog();
+  }
+
+  private saveProjectToServer(project: Project) {
+    this.projectService.create(project);
+  }
+
+  private convertResponsiblePersonInFormat(responsiblePersonName: string) {
+    const splitNameArray = responsiblePersonName.split(' ');
+    if (splitNameArray.length > 1) {
+      return splitNameArray[0] + '@' + splitNameArray[1];
+    } else {
+      this._errorCreatingProject = true;
+    }
   }
 
   private _filter(value: string): string[] {

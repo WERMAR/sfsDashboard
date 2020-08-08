@@ -1,0 +1,11 @@
+<h1 md-dialog-title> {{ errorMessage }}</h1>
+<div>
+  <p> {{ errorDescription }}</p>
+</div>
+<div mat-dialog-actions>
+  <div class="container">
+    <div class="row">
+      <button mat-button (click)="accept()" class="col float-right" cdkFocusInitial>Okay</button>
+    </div>
+  </div>
+</div>

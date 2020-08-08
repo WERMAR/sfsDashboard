@@ -25,6 +25,7 @@ import {EditProjectDialogComponent} from './box/edit-project-dialog/edit-project
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {UserService} from './services/user.service';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {UserService} from './services/user.service';
     AddProjectDialogComponent,
     EditProjectDialogComponent,
     ConfirmationDialogComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,
