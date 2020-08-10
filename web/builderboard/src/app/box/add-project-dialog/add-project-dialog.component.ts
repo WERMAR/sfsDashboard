@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Project} from '../../db/entities/project';
 import {FormControl, FormGroup} from '@angular/forms';
@@ -28,10 +28,8 @@ export class ProjectTransfer {
   projectDescription: string;
   start: Moment;
   end: Moment;
-  reminder: boolean;
   startReminder: number;
   endReminder: number;
-  responsiblePersonName: string;
 }
 
 @Component({
@@ -49,17 +47,19 @@ export class ProjectTransfer {
   ],
 })
 export class AddProjectDialogComponent implements OnInit {
-  public projectTransfer: ProjectTransfer = new ProjectTransfer();
+  public reminder = false;
   public times = [1, 2, 3, 4, 5];
-  formControl = new FormControl();
+  userNameFormControl = new FormControl();
   public usersNames: string[] = [];
   filteredOptions: Observable<string[]>;
   projectFromGroup: FormGroup = AddProjectDialogComponent.setupFormGroup();
+  @Input() projectService: ProjectService;
   private _errorCreatingProject = false;
 
   constructor(public dialogRef: MatDialogRef<AddProjectDialogComponent>,
-              private userService: UserService, private dialog: MatDialog, private projectService: ProjectService) {
+              private userService: UserService, private dialog: MatDialog) {
   }
+
 
   private static setupFormGroup() {
     return new FormGroup({
@@ -75,7 +75,7 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredOptions = this.formControl.valueChanges
+    this.filteredOptions = this.userNameFormControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -84,7 +84,7 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   updateReminder() {
-    this.projectTransfer.reminder = !this.projectTransfer.reminder;
+    this.reminder = !this.reminder;
   }
 
   hideDialog() {
@@ -98,10 +98,10 @@ export class AddProjectDialogComponent implements OnInit {
       projectValue.projectDescription,
       projectValue.start.format('YYYY-MM-DD'),
       projectValue.end.format('YYYY-MM-DD'),
-      this.projectTransfer.reminder,
+      this.reminder,
       projectValue.startReminder,
       projectValue.endReminder,
-      this.convertResponsiblePersonInFormat(projectValue.responsiblePersonName));
+      this.convertResponsiblePersonInFormat(this.userNameFormControl.value));
 
     console.log(project);
     if (!this._errorCreatingProject) {
@@ -130,6 +130,7 @@ export class AddProjectDialogComponent implements OnInit {
 
   private fetchUserData() {
     this.userService.fetchData().subscribe(res => {
+      console.log(res);
       for (const user of res) {
         this.usersNames.push(user.firstName + ' ' + user.lastName);
       }

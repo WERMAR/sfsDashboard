@@ -10,6 +10,7 @@ import {Converter} from '../util/Converter';
 @Injectable()
 export class ProjectService {
 
+  public isWaitingForNextFetch = false;
   private readonly currentConnectionURL = null;
 
   constructor(private http: HttpClient) {
@@ -32,22 +33,27 @@ export class ProjectService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.get<Project[]>(this.currentConnectionURL + '/project', httpOptions).pipe(
-      map((data: Project[]) => data.map(res => {
-        return new Project(res.orderNumber, res.projectDescription, res.start,
-          res.end, res.reminder, res.startReminder, res.endReminder, Converter.convertToNormalUserName(res.responsiblePersonName));
-      })));
+    try {
+      return this.http.get<Project[]>(this.currentConnectionURL + '/project', httpOptions).pipe(
+        map((data: Project[]) => data.map(res => {
+          return new Project(res.orderNumber, res.projectDescription, res.start,
+            res.end, res.reminder, res.startReminder, res.endReminder, Converter.convertToNormalUserName(res.responsiblePersonName));
+        })));
+    } finally {
+      this.isWaitingForNextFetch = false;
+    }
   }
 
   public create(project: Project) {
     this.http.post<Project>(this.currentConnectionURL + '/project', project).subscribe(res => {
-      console.log(res);
     });
-    console.log('Project was sending by the system');
+    this.isWaitingForNextFetch = true;
   }
 
   public update(project: Project) {
-    this.http.put<Project>(this.currentConnectionURL + '/project', project);
+    this.http.put<Project>(this.currentConnectionURL + '/project', project).subscribe(res => {
+    });
+    this.isWaitingForNextFetch = true;
   }
 
   public delete(orderNumber: number): Observable<Project> {

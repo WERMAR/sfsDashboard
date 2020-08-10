@@ -24,10 +24,6 @@ export class ListProjectComponent implements OnInit {
   loadData() {
     this.service.fetchData().subscribe(res => {
         this._projects = res;
-        /* for (const project of this._projects) {
-          project.responsiblePersonName = new User(project.responsiblePerson.id,
-            project.responsiblePerson.firstName, project.responsiblePerson.lastName);
-        }*/
         console.log(this._projects);
       },
       err => console.log(err)

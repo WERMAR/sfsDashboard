@@ -26,6 +26,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {UserService} from './services/user.service';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [AddProjectDialogComponent],
   providers: [ProjectService, UserService],

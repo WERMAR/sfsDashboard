@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 import {ErrorDialogComponent} from '../error-dialog/error-dialog.component';
+import {ProjectService} from '../services/project.service';
 
 @Component({
   selector: 'app-box',
@@ -10,15 +11,11 @@ import {ErrorDialogComponent} from '../error-dialog/error-dialog.component';
 })
 export class BoxComponent implements OnInit {
 
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
     console.log('Box-Component called');
-  }
-
-  addProjectToList() {
-    // TODO implement in step 'functionality implementation of add project dialog'
   }
 
   openAddProjectDialog() {
@@ -26,6 +23,8 @@ export class BoxComponent implements OnInit {
       width: 'auto',
       minWidth: '30vw'
     });
+
+    addProjectDialogRef.componentInstance.projectService = this.projectService;
 
     addProjectDialogRef.afterClosed().subscribe(result => {
         if (!result) {
