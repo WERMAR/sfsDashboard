@@ -33,9 +33,9 @@
       <div class="col float-right">
         <h4>Weitere Projektdaten</h4>
         <hr class="customHrElement">
-        <mat-checkbox [checked]="projectTransfer.reminder" (change)="updateReminder()">Erinnerung</mat-checkbox>
+        <mat-checkbox [checked]="reminder" (change)="updateReminder()">Erinnerung</mat-checkbox>
         <hr class="customHrElement">
-        <div *ngIf="projectTransfer.reminder" class="reminderSection">
+        <div *ngIf="reminder" class="reminderSection">
           <mat-form-field>
             <mat-label>Start-Erinnerung</mat-label>
             <mat-select formControlName="startReminder">
@@ -60,8 +60,7 @@
                  aria-label="Projektleiter"
                  matInput
                  [matAutocomplete]="auto"
-                 [formControl]="formControl"
-                 formControlName="responsiblePersonName">
+                 [formControl]="userNameFormControl">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let user of filteredOptions | async" [value]="user">
               {{ user }}
