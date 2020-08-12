@@ -7,6 +7,7 @@ import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {UserService} from '../../services/user.service';
+import {ProjectService} from '../../services/project.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -41,23 +42,27 @@ export class EditProjectDialogComponent implements OnInit {
   public times = [1, 2, 3, 4, 5];
   public usersNames: string[] = [];
   filteredOptions: Observable<string[]>;
+  projectFromGroup: FormGroup;
+  userNameFormControl = new FormControl();
+  private _errorCreatingProject = false;
 
-  formControl = new FormControl();
-
-  constructor(private dialogRef: MatDialogRef<EditProjectDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Project, private userService: UserService) {
-    console.log(data);
+  constructor(private dialogRef: MatDialogRef<EditProjectDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Project, private userService: UserService,
+              private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
+    this.setupFormGroup();
     if (this.data.responsiblePersonName != null) {
-      this.formControl.setValue(this.data.responsiblePersonName);
+      this.userNameFormControl.setValue(this.data.responsiblePersonName);
     }
-    this.filteredOptions = this.formControl.valueChanges
+    this.filteredOptions = this.userNameFormControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
     this.fetchUserData();
+
   }
 
   updateReminder() {
@@ -66,6 +71,59 @@ export class EditProjectDialogComponent implements OnInit {
 
   hideDialog() {
     this.dialogRef.close();
+  }
+
+  updateProject() {
+    const projectValue = this.projectFromGroup.value;
+    console.log(projectValue);
+    const project = new Project(projectValue.orderNumber,
+      projectValue.projectDescription,
+      projectValue.start,
+      projectValue.end,
+      this.data.reminder,
+      projectValue.startReminder,
+      projectValue.endReminder,
+      this.convertResponsiblePersonInFormat(this.userNameFormControl.value));
+
+    if (!this._errorCreatingProject) {
+      this.projectService.update(project);
+    }
+    this.hideDialog();
+  }
+
+  private convertResponsiblePersonInFormat(responsiblePersonName: string) {
+    const splitNameArray = responsiblePersonName.split(' ');
+    if (splitNameArray.length > 1) {
+      return splitNameArray[0] + '@' + splitNameArray[1];
+    } else {
+      this._errorCreatingProject = true;
+    }
+  }
+
+  private setupFormGroup() {
+    this.projectFromGroup = new FormGroup({
+      orderNumber: new FormControl(''),
+      projectDescription: new FormControl(''),
+      start: new FormControl(''),
+      end: new FormControl(''),
+      reminder: new FormControl(''),
+      startReminder: new FormControl(''),
+      endReminder: new FormControl(''),
+      responsiblePersonName: new FormControl('')
+    });
+
+    this.projectFromGroup.setValue(
+      {
+        orderNumber: this.data.orderNumber,
+        projectDescription: this.data.projectDescription,
+        start: this.data.start,
+        end: this.data.end,
+        reminder: this.data.reminder,
+        startReminder: this.data.startReminder,
+        endReminder: this.data.endReminder,
+        responsiblePersonName: this.data.responsiblePersonName
+      }
+    );
   }
 
   private _filter(value: string): string[] {
@@ -81,5 +139,4 @@ export class EditProjectDialogComponent implements OnInit {
       }
     });
   }
-
 }

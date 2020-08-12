@@ -1,31 +1,31 @@
 <h1 mat-dialog-title>Bearbeiten des Projekts: {{ data.projectDescription }}</h1>
 <hr class="customHrElement">
 <div mat-dialog-content>
-  <div class="container">
+  <div class="container" [formGroup]="projectFromGroup">
     <div class="row">
       <div class="col-xs">
         <h4>Projektbasisdaten</h4>
         <hr class="customHrElement">
         <mat-form-field>
           <mat-label>Angebotsnummer</mat-label>
-          <input matInput [(ngModel)]="data.orderNumber" matNativeControl>
+          <input matInput formControlName="orderNumber" matNativeControl>
         </mat-form-field>
         <br>
         <mat-form-field>
           <mat-label>Projektbezeichnung</mat-label>
-          <input matInput [(ngModel)]="data.projectDescription">
+          <input matInput formControlName="projectDescription">
         </mat-form-field>
         <br>
         <mat-form-field>
           <mat-label>Projektstart</mat-label>
-          <input matInput matNativeControl [matDatepicker]="startDate" [(ngModel)]="data.start">
+          <input matInput matNativeControl [matDatepicker]="startDate" formControlName="start">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
         <br>
         <mat-form-field>
           <mat-label>Projektende</mat-label>
-          <input matInput matNativeControl [matDatepicker]="endDate"  [(ngModel)]="data.end">
+          <input matInput matNativeControl [matDatepicker]="endDate" formControlName="end">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
@@ -38,7 +38,7 @@
         <div *ngIf="data.reminder" class="reminderSection">
           <mat-form-field>
             <mat-label>Start-Erinnerung</mat-label>
-            <mat-select>
+            <mat-select formControlName="startReminder">
               <mat-option *ngFor="let time of times" [value]="time">
                 {{time}} Woche(n)
               </mat-option>
@@ -47,7 +47,7 @@
           <br>
           <mat-form-field>
             <mat-label>End-Erinnerung</mat-label>
-            <mat-select>
+            <mat-select  formControlName="endReminder">
               <mat-option *ngFor="let time of times" [value]="time">
                 {{time}} Woche(n)
               </mat-option>
@@ -60,7 +60,7 @@
                  aria-label="Projektleiter"
                  matInput
                  [matAutocomplete]="auto"
-                 [formControl]="formControl">
+                 [formControl]="userNameFormControl">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let user of filteredOptions | async" [value]="user">
               {{ user }}
@@ -75,7 +75,7 @@
   <div class="container">
     <div class="row">
       <button mat-button class="col" (click)="hideDialog()">Abbrechen</button>
-      <button mat-button [mat-dialog-close]="data.projectDescription" class="col float-right">Hinzufügen</button>
+      <button mat-button class="col float-right" (click)="updateProject()">Hinzufügen</button>
     </div>
   </div>
 </div>

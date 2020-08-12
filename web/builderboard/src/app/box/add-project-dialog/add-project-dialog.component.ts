@@ -103,16 +103,12 @@ export class AddProjectDialogComponent implements OnInit {
       projectValue.endReminder,
       this.convertResponsiblePersonInFormat(this.userNameFormControl.value));
 
-    console.log(project);
     if (!this._errorCreatingProject) {
-      this.saveProjectToServer(project);
+      this.projectService.create(project);
     }
     this.hideDialog();
   }
 
-  private saveProjectToServer(project: Project) {
-    this.projectService.create(project);
-  }
 
   private convertResponsiblePersonInFormat(responsiblePersonName: string) {
     const splitNameArray = responsiblePersonName.split(' ');
