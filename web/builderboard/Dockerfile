@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm run build-prod
 
 FROM nginx as prod-stage
 COPY --from=build-step /app/dist/builderboard /usr/share/nginx/html
