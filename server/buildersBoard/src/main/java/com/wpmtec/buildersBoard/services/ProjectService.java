@@ -5,6 +5,7 @@ import com.wpmtec.buildersBoard.entity.data.Project;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Service
@@ -24,6 +25,14 @@ public class ProjectService {
      * @return - the created project
      */
     public Project saveOrUpdate(Project project) {
+        try {
+            Project searchedProject = jpaController.getProjectForOrderNumber(project.getOrderNumber());
+            if (searchedProject != null) {
+                project.setId(searchedProject.getId());
+            }
+        } catch (NoResultException nre) {
+            log.info("No existing data record found for orderNumber: " + project.getOrderNumber() + " the object will be saved now");
+        }
         return jpaController.saveOrUpdate(project);
     }
 
