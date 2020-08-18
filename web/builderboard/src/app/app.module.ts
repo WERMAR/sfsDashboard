@@ -27,6 +27,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import {UserService} from './services/user.service';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { UserComponent } from './user/user.component';
+import { UserAddDialogComponent } from './user/user-add-dialog/user-add-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     EditProjectDialogComponent,
     ConfirmationDialogComponent,
     ErrorDialogComponent,
+    UserComponent,
+    UserAddDialogComponent,
   ],
   imports: [
     BrowserModule,
