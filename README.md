@@ -46,14 +46,21 @@ The server project described and contains the backend system. We decided to use 
 
 ### Server Project - Details
 ---
-The server project is setup with Maven and this build processing is setup in the [pom.xml](../server/builderBoards/pom.xml). The database will be migrate with the framework `flyway`. The flyway scripts are based in the folder: `server/buildersBoard/src/main/resources/db/migration`
+The server project is setup with Maven and this build processing is setup in the `pom.xml`. The database will be migrate with the framework `flyway`. The flyway scripts are based in the folder: `server/buildersBoard/src/main/resources/db/migration`
 
 > If you want to add some new Migration-Scripts, it based on this Pattern: `Vx.x__{fileName}.sql`
 
-The Server has a standard configuration.
+The Server has a standard configuration, but is available via Port 9000. This is, cause in the docker Container (see `docker-compose.yml`), the port 9000 is mapped on the Port 8080.
+
+As at the beginning mentioned, is the server based on Spring Boot. So that give me the oppertunity to create easily a little API-Documentation with **Swagger**. The API-Documentation is via `http://localhost:9000/swagger-ui.html#/` avaiable. With this Documentation you were able to check the API with all necessary informations. Also you were able to test the API with the help of Swagger.
+
+> More Informations about Swagger you can find [here](https://swagger.io/)
 
 # Web - Project Description
-The web project is the frontend system. Here we use Angular in the newest version.
+The web project is the application part with the most user experience, it is the frontend. For this we used angular in the newest version. As at section "Installation of all required systems" mentioned, install the angular cli, and then you can start with this project. If you only want to run this project, you only have to build the images and start then Docker-Container.
+
+> For this take a look to the next section. 
+
 
 # Start Project
 In this project we used docker for our production enviroment. When you started with this project, first of all it is important to build the docker images. To build both images, you can execute the `buildImages.sh` (for Linux and Unix) or `buildImages.bat`(for Windows). After building the Docker-Images of server and web, you can start the application with the help of `docker-compose.yml`. This file contains the configuration of all docker container and with the command `docker-compose up -d`, in the main directory, you start the application.
