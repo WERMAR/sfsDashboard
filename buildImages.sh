@@ -10,7 +10,7 @@ echo "WORKDIR set on $WORKDIR"
 # execute build
 echo ""
 echo "switch to server directory"
-cd $WORKDIR/server/buildersBoard
+cd $WORKDIR/server/builderBoard
 echo `pwd`
 echo "execute build command of docker"
 command $DOCKERBUILD $DOCKERFILESERVER
