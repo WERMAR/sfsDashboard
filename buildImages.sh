@@ -16,7 +16,7 @@ echo "execute build command of docker"
 command $DOCKERBUILD $DOCKERFILESERVER
 echo ""
 echo "successfully created builderboard-server-img -> creating now web image"
-cd $WORKDIR/web/builderBoard
+cd $WORKDIR/web/builderboard
 echo `pwd`
 echo "execute build command to build web image"
 command $DOCKERBUILD $DOCKERFILEWEB
