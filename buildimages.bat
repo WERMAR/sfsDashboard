@@ -1,19 +1,12 @@
 @echo off
-
-SET WORKDIR=%undefined%
-SET %undefined%DOCKERBUILD="docker build -t"
-SET %undefined%DOCKERFILESERVER="builderboard-server-img %CD%"
-SET %undefined%DOCKERFILEWEB="builderboard-web-img %CD%"
-echo "WORKDIR set on %WORKDIR%"
 echo 
 echo "switch to server directory"
-cd %WORKDIR%\server\buildersBoard
+cd .\server\buildersBoard
 echo %undefined%
 echo "execute build command of docker"
-command %DOCKERBUILD% %DOCKERFILESERVER%
+docker build -t builderboard-server-img .
 echo 
 echo "successfully created builderboard-server-img -> creating now web image"
-cd %WORKDIR%\web\buildersBoard
-echo %undefined%
+cd .\web\buildersBoard
 echo "execute build command to build web image"
-command %DOCKERBUILD% %DOCKERFILEWEB%
+docker build -t builderboard-web-img .
