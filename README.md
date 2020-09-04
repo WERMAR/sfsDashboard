@@ -64,3 +64,7 @@ The web project is the application part with the most user experience, it is the
 
 # Start Project
 In this project we used docker for our production enviroment. When you started with this project, first of all it is important to build the docker images. To build both images, you can execute the `buildImages.sh` (for Linux and Unix) or `buildImages.bat`(for Windows). After building the Docker-Images of server and web, you can start the application with the help of `docker-compose.yml`. This file contains the configuration of all docker container and with the command `docker-compose up -d`, in the main directory, you start the application.
+
+
+# Installation Description - Raspberrry
+comes next
