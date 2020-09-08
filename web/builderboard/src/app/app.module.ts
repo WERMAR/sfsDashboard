@@ -23,12 +23,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {EditProjectDialogComponent} from './box/edit-project-dialog/edit-project-dialog.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {UserService} from './services/user.service';
-import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import {ErrorDialogComponent} from './error-dialog/error-dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { UserComponent } from './user/user.component';
-import { UserAddDialogComponent } from './user/user-add-dialog/user-add-dialog.component';
+import {UserComponent} from './user/user.component';
+import {UserAddDialogComponent} from './user/user-add-dialog/user-add-dialog.component';
+import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
+import {SpinnerOverlayService} from './services/spinner-overlay.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { UserAddDialogComponent } from './user/user-add-dialog/user-add-dialog.c
     ErrorDialogComponent,
     UserComponent,
     UserAddDialogComponent,
+    SpinnerOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,7 @@ import { UserAddDialogComponent } from './user/user-add-dialog/user-add-dialog.c
     MatProgressSpinnerModule
   ],
   entryComponents: [AddProjectDialogComponent],
-  providers: [ProjectService, UserService],
+  providers: [ProjectService, UserService, SpinnerOverlayService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
