@@ -19,8 +19,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    @ResponseBody()
+    @GetMapping
+    @ResponseBody
     public List<User> loadAll() {
         return this.userService.loadAll();
     }
