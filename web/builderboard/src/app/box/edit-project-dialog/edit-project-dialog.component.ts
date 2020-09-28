@@ -84,12 +84,13 @@ export class EditProjectDialogComponent implements OnInit {
 
   updateProject() {
     if(this.checkValues()){
+      debugger;
       const projectValue = this.projectFromGroup.value;
       console.log(projectValue);
       const project = new Project(projectValue.orderNumber,
         projectValue.projectDescription,
-        this.dateForm.value.start,
-        this.dateForm.value.end,
+        this.dateForm.value.start.format('YYYY-MM-DD'),
+        this.dateForm.value.end.format('YYYY-MM-DD'),
         this.data.reminder,
         projectValue.startReminder,
         projectValue.endReminder,
@@ -151,9 +152,11 @@ export class EditProjectDialogComponent implements OnInit {
     });
   }
   get f() {
+    debugger;
     return this.dateForm.controls;
   }
   checkValues(){
+    debugger;
     this.submitted = true;
     // Returns false if form is invalid
     if (this.dateForm.invalid) {

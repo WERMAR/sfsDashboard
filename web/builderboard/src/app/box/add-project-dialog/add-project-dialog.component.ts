@@ -146,6 +146,7 @@ export class AddProjectDialogComponent implements OnInit {
     });
   }
   get f() {
+    console.log(this.dateForm.controls.start.errors);
     return this.dateForm.controls;
   }
   

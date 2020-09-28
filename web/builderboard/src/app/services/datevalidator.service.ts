@@ -6,20 +6,43 @@ export function DateValidator(
       endDateName: string
     ) {
       return (formGroup: FormGroup) => {
+        debugger;
+        let startDate, endDate;
         let today = new Date();
         today.setDate(today.getDate() - 1);
         const control_startDate = formGroup.controls[startDateName];
-        const control_endDate = formGroup.controls[endDateName];
-    
+        const control_endDate   = formGroup.controls[endDateName];
+        // startDate
+        // convert string to date for comparison
+        if(typeof(control_startDate.value) === "object"){
+             startDate = control_startDate.value;
+        }else{
+             startDate = new Date(control_startDate.value);
+        }
+        // endDate
+        // convert string to date for comparison
+        if(typeof(control_endDate.value) === "object"){
+             endDate = control_endDate.value;
+        }else{
+             endDate = new Date(control_endDate.value);
+        }
+
         if (control_endDate.errors && !control_endDate.errors.dateInvalid) {
           return;
         }
-    
-        if (control_startDate.value >= control_endDate.value){
+
+        // check if date is valid or not 
+        if (startDate >= endDate){
             control_endDate.setErrors({ dateInvalid: true });
+            if(startDate < today){
+              control_startDate.setErrors({ dateInvalid: true});
+            }
         } 
-        else if(control_startDate.value < today){
+        else if(startDate < today){
             control_startDate.setErrors({ dateInvalid: true});
+            if (startDate >= endDate){
+              control_endDate.setErrors({ dateInvalid: true });
+            }
         }
         else{
             control_endDate.setErrors(null);

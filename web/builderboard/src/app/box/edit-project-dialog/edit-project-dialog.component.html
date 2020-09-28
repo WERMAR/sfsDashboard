@@ -17,22 +17,26 @@
         </mat-form-field>
         <br>
         <form [formGroup]="dateForm">
-          <mat-form-field>
+           <mat-form-field>
             <mat-label>Projektstart</mat-label>
             <input matInput matNativeControl [matDatepicker]="startDate" formControlName="start">
-            <div *ngIf="submitted && f.start.errors">
-              <div class="alert alert-danger" *ngIf="f.start.errors.dateInvalid">Das Datum darf nicht vor heute liegen!</div>
-          </div>
+              <mat-error *ngIf="f.start.errors">
+                <p *ngIf="f.start.errors.dateInvalid">
+                  <mat-icon>error</mat-icon>Das Datum darf nicht vor heute liegen!
+                </p>
+              </mat-error>              
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
           </mat-form-field>
           <br>
-          <mat-form-field>
+           <mat-form-field>
             <mat-label>Projektende</mat-label>
-            <input matInput matNativeControl [matDatepicker]="endDate" formControlName="end">
-            <div *ngIf="submitted && f.end.errors">
-              <div class="alert alert-danger" *ngIf="f.end.errors.dateInvalid">Das Projektende darf nicht vor dem Projektstart liegen!</div>
-            </div>
+            <input matInput matNativeControl [matDatepicker]="endDate" formControlName="end">        
+              <mat-error *ngIf="f.end.errors">
+                  <p *ngIf="f.end.errors.dateInvalid">
+                    <mat-icon>error</mat-icon>Das Projektende darf nicht vor dem Projektstart liegen!
+                  </p>
+              </mat-error>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
           </mat-form-field>
