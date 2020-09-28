@@ -21,7 +21,7 @@ export class UserService {
   }
 
   fetchData(): Observable<User[]> {
-    return this.http.get<User[]>(this.currentConnectionURL + '/user/all').pipe(
+    return this.http.get<User[]>(this.currentConnectionURL + '/user').pipe(
       map((data: User[]) => data.map(res => {
         return new User(res.id, res.firstName, res.lastName);
       })));

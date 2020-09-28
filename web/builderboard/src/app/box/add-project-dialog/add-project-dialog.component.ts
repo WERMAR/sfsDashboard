@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Project} from '../../db/entities/project';
-import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -9,7 +9,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {UserService} from '../../services/user.service';
 import {Moment} from 'moment';
 import {ProjectService} from '../../services/project.service';
-import {DateValidator} from "../../services/datevalidator.service";
+import {DateValidator} from '../../services/datevalidator.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -63,6 +63,10 @@ export class AddProjectDialogComponent implements OnInit {
               private formBuilder: FormBuilder) {
   }
 
+  get f() {
+    console.log(this.dateForm.controls.start.errors);
+    return this.dateForm.controls;
+  }
 
   private static setupFormGroup() {
     return new FormGroup({
@@ -85,11 +89,11 @@ export class AddProjectDialogComponent implements OnInit {
       );
     this.fetchUserData();
     this.dateForm = this.formBuilder.group({
-      start: [""],
-      end: [""],
-    },
-     // use custom validator
-     { validator: DateValidator("start", "end")} );
+        start: [''],
+        end: [''],
+      },
+      // use custom validator
+      {validator: DateValidator('start', 'end')});
   }
 
   updateReminder() {
@@ -101,15 +105,13 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   createProject() {
-    debugger;
-    if(this.checkValues()){
-    
+    if (this.checkValues()) {
       const projectValue = this.projectFromGroup.value;
 
       const project = new Project(projectValue.orderNumber,
         projectValue.projectDescription,
-        this.dateForm.value.start.format('YYYY-MM-DD'),
-        this.dateForm.value.end.format('YYYY-MM-DD'),
+        this.dateForm.value.start.toString('YYYY-MM-DD'),
+        this.dateForm.value.end.toString('YYYY-MM-DD'),
         this.reminder,
         projectValue.startReminder,
         projectValue.endReminder,
@@ -122,6 +124,14 @@ export class AddProjectDialogComponent implements OnInit {
     }
   }
 
+  checkValues() {
+    this.submitted = true;
+    // Returns false if form is invalid
+    if (this.dateForm.invalid) {
+      return false;
+    }
+    return true;
+  }
 
   private convertResponsiblePersonInFormat(responsiblePersonName: string) {
     const splitNameArray = responsiblePersonName.split(' ');
@@ -144,18 +154,5 @@ export class AddProjectDialogComponent implements OnInit {
         this.usersNames.push(user.firstName + ' ' + user.lastName);
       }
     });
-  }
-  get f() {
-    console.log(this.dateForm.controls.start.errors);
-    return this.dateForm.controls;
-  }
-  
-  checkValues(){
-    this.submitted = true;
-    // Returns false if form is invalid
-    if (this.dateForm.invalid) {
-      return false;
-    }
-    return true;
   }
 }
