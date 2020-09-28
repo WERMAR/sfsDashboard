@@ -7,7 +7,6 @@ import {map, startWith} from 'rxjs/operators';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {UserService} from '../../services/user.service';
-import {Moment} from 'moment';
 import {ProjectService} from '../../services/project.service';
 import {DateValidator} from '../../services/datevalidator.service';
 
@@ -22,15 +21,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-
-export class ProjectTransfer {
-  orderNumber: string;
-  projectDescription: string;
-  start: Moment;
-  end: Moment;
-  startReminder: number;
-  endReminder: number;
-}
 
 @Component({
   selector: 'app-project-dialog',
@@ -127,10 +117,8 @@ export class AddProjectDialogComponent implements OnInit {
   checkValues() {
     this.submitted = true;
     // Returns false if form is invalid
-    if (this.dateForm.invalid) {
-      return false;
-    }
-    return true;
+    return !this.dateForm.invalid;
+
   }
 
   private convertResponsiblePersonInFormat(responsiblePersonName: string) {
