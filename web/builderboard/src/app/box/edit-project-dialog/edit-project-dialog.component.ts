@@ -9,6 +9,8 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {UserService} from '../../services/user.service';
 import {ProjectService} from '../../services/project.service';
 import {DateValidator} from '../../services/datevalidator.service';
+import * as moment from 'moment';
+import {Moment} from 'moment';
 
 export const MY_FORMATS = {
   parse: {
@@ -86,13 +88,14 @@ export class EditProjectDialogComponent implements OnInit {
   }
 
   updateProject() {
+
     if (this.checkValues()) {
       const projectValue = this.projectFromGroup.value;
       console.log(projectValue);
       const project = new Project(projectValue.orderNumber,
         projectValue.projectDescription,
-        this.dateForm.value.start.toString('YYYY-MM-DD'),
-        this.dateForm.value.end.toString('YYYY-MM-DD'),
+        this.dateForm.value.start.format('YYYY-MM-DD'),
+        this.dateForm.value.end.format('YYYY-MM-DD'),
         this.data.reminder,
         projectValue.startReminder,
         projectValue.endReminder,
@@ -132,12 +135,14 @@ export class EditProjectDialogComponent implements OnInit {
       responsiblePersonName: new FormControl('')
     });
 
+    const startDate: Moment = moment(this.data.start, 'YYYY-MM-DD');
+    const endDate: Moment = moment(this.data.end, 'YYYY-MM-DD');
     this.projectFromGroup.setValue(
       {
         orderNumber: this.data.orderNumber,
         projectDescription: this.data.projectDescription,
-        start: this.data.start,
-        end: this.data.end,
+        start: startDate,
+        end: endDate,
         reminder: this.data.reminder,
         startReminder: this.data.startReminder,
         endReminder: this.data.endReminder,

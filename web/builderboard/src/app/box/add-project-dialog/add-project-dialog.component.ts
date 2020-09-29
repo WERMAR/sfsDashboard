@@ -100,8 +100,8 @@ export class AddProjectDialogComponent implements OnInit {
 
       const project = new Project(projectValue.orderNumber,
         projectValue.projectDescription,
-        this.dateForm.value.start.toString('YYYY-MM-DD'),
-        this.dateForm.value.end.toString('YYYY-MM-DD'),
+        this.dateForm.value.start.format('YYYY-MM-DD'),
+        this.dateForm.value.end.format('YYYY-MM-DD'),
         this.reminder,
         projectValue.startReminder,
         projectValue.endReminder,
@@ -118,7 +118,6 @@ export class AddProjectDialogComponent implements OnInit {
     this.submitted = true;
     // Returns false if form is invalid
     return !this.dateForm.invalid;
-
   }
 
   private convertResponsiblePersonInFormat(responsiblePersonName: string) {

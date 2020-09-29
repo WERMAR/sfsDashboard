@@ -54,6 +54,7 @@ export class ProjectService {
   }
 
   public update(project: Project) {
+    debugger;
     this.http.put<Project>(this.currentConnectionURL + '/project', project).subscribe(res => {
     });
     this.isWaitingForNextFetch = true;
