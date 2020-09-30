@@ -19,12 +19,7 @@
         <form [formGroup]="dateForm">
            <mat-form-field>
             <mat-label>Projektstart</mat-label>
-            <input matInput matNativeControl [matDatepicker]="startDate" formControlName="start">
-              <mat-error *ngIf="f.start.errors">
-                <p *ngIf="f.start.errors.dateInvalid">
-                  <mat-icon>error</mat-icon>Das Datum darf nicht vor heute liegen!
-                </p>
-              </mat-error>              
+            <input matInput matNativeControl [matDatepicker]="startDate" formControlName="start">             
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
           </mat-form-field>

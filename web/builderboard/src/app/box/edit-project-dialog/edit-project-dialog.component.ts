@@ -71,7 +71,7 @@ export class EditProjectDialogComponent implements OnInit {
       end: [this.data.end],
     },
      // use custom validator
-     { validator: DateValidator("start", "end")} );
+     { validator: DateValidator("start", "end", "edit")} );
   }
 
   updateReminder() {
@@ -89,8 +89,8 @@ export class EditProjectDialogComponent implements OnInit {
       console.log(projectValue);
       const project = new Project(projectValue.orderNumber,
         projectValue.projectDescription,
-        this.dateForm.value.start.format('YYYY-MM-DD'),
-        this.dateForm.value.end.format('YYYY-MM-DD'),
+        this.dateForm.value.start,
+        this.dateForm.value.end,
         this.data.reminder,
         projectValue.startReminder,
         projectValue.endReminder,
@@ -152,7 +152,6 @@ export class EditProjectDialogComponent implements OnInit {
     });
   }
   get f() {
-    debugger;
     return this.dateForm.controls;
   }
   checkValues(){

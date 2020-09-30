@@ -3,7 +3,8 @@ import { FormGroup, AbstractControl } from "@angular/forms";
 export function DateValidator(
     /*   controlName: string, */
       startDateName: string,
-      endDateName: string
+      endDateName: string,
+      project_dialog: string,
     ) {
       return (formGroup: FormGroup) => {
         debugger;
@@ -34,11 +35,11 @@ export function DateValidator(
         // check if date is valid or not 
         if (startDate >= endDate){
             control_endDate.setErrors({ dateInvalid: true });
-            if(startDate < today){
+            if(startDate < today && project_dialog === "add"){
               control_startDate.setErrors({ dateInvalid: true});
             }
         } 
-        else if(startDate < today){
+        else if(startDate < today && project_dialog === "add"){
             control_startDate.setErrors({ dateInvalid: true});
             if (startDate >= endDate){
               control_endDate.setErrors({ dateInvalid: true });
