@@ -165,4 +165,16 @@ export class EditProjectDialogComponent implements OnInit {
       }
     });
   }
+  get f() {
+    return this.dateForm.controls;
+  }
+  checkValues(){
+    debugger;
+    this.submitted = true;
+    // Returns false if form is invalid
+    if (this.dateForm.invalid) {
+      return false;
+    }
+    return true;
+  }
 }
