@@ -83,7 +83,7 @@ export class AddProjectDialogComponent implements OnInit {
         end: [''],
       },
       // use custom validator
-      {validator: DateValidator('start', 'end')});
+      {validator: DateValidator('start', 'end', 'add')});
   }
 
   updateReminder() {

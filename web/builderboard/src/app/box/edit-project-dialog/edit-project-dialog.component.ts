@@ -76,7 +76,7 @@ export class EditProjectDialogComponent implements OnInit {
         end: [this.data.end],
       },
       // use custom validator
-      {validator: DateValidator('start', 'end')});
+      {validator: DateValidator('start', 'end', 'edit')});
   }
 
   updateReminder() {
@@ -112,7 +112,10 @@ export class EditProjectDialogComponent implements OnInit {
   checkValues() {
     this.submitted = true;
     // Returns false if form is invalid
-    return !this.dateForm.invalid;
+    if (this.dateForm.invalid) {
+      return false;
+    }
+    return true;
   }
 
   private convertResponsiblePersonInFormat(responsiblePersonName: string) {
@@ -164,17 +167,5 @@ export class EditProjectDialogComponent implements OnInit {
         this.usersNames.push(user.firstName + ' ' + user.lastName);
       }
     });
-  }
-  get f() {
-    return this.dateForm.controls;
-  }
-  checkValues(){
-    debugger;
-    this.submitted = true;
-    // Returns false if form is invalid
-    if (this.dateForm.invalid) {
-      return false;
-    }
-    return true;
   }
 }
