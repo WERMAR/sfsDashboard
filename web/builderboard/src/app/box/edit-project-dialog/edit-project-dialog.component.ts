@@ -91,11 +91,12 @@ export class EditProjectDialogComponent implements OnInit {
 
     if (this.checkValues()) {
       const projectValue = this.projectFromGroup.value;
-      console.log(projectValue);
+      const startDate = moment(this.dateForm.value.start).format('YYYY-MM-DD');
+      const endDate = moment(this.dateForm.value.end).format('YYYY-MM-DD');
       const project = new Project(projectValue.orderNumber,
         projectValue.projectDescription,
-        this.dateForm.value.start.format('YYYY-MM-DD'),
-        this.dateForm.value.end.format('YYYY-MM-DD'),
+        startDate,
+        endDate,
         this.data.reminder,
         projectValue.startReminder,
         projectValue.endReminder,
