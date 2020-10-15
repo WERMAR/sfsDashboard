@@ -1,16 +1,14 @@
-package com.wpmtec.buildersBoard.rest.controller.project;
+package com.wpmtec.buildersBoard.rest.controller;
 
-import com.wpmtec.buildersBoard.entity.data.Project;
-import com.wpmtec.buildersBoard.entity.data.User;
-import com.wpmtec.buildersBoard.rest.controller.RestControllerInterface;
-import com.wpmtec.buildersBoard.rest.controller.data.ProjectRestData;
+import com.wpmtec.buildersBoard.data.entity.Project;
+import com.wpmtec.buildersBoard.data.entity.User;
+import com.wpmtec.buildersBoard.rest.data.ProjectRestData;
 import com.wpmtec.buildersBoard.services.ProjectService;
 import com.wpmtec.buildersBoard.services.UserService;
 import com.wpmtec.buildersBoard.util.converter.ProjectConverter;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
 import javax.persistence.NoResultException;
 import javax.validation.ValidationException;
@@ -65,14 +63,12 @@ public class ProjectController implements RestControllerInterface<Project> {
             throw new NullPointerException();
         }
 
-        List<User> userForData = getUserForData(restData.getResponsiblePersonName());
-        User user = null;
-        if (userForData.size() == 1) {
-            user = userForData.get(0);
-        }
+        User user = getUserForData(restData.getResponsiblePersonName());
+        if (user != null)
+            throw new NoResultException("User couldn't found for Name: " + restData.getResponsiblePersonName());
         Project project = null;
         try {
-            project = ProjectConverter.toDB(restData, user);
+            project = ProjectConverter.toDB(restData, );
         } catch (ParseException e) {
             log.error("While converting ProjectRestData to ProjectData ParseException was thrown", e);
         }
@@ -82,7 +78,7 @@ public class ProjectController implements RestControllerInterface<Project> {
         throw new ValidationException("Reminder configuration is not valid");
     }
 
-    private List<User> getUserForData(String responsiblePersonName) {
+    private User getUserForData(String responsiblePersonName) {
         int indexOfSplitter = responsiblePersonName.indexOf('@');
         String firstName = responsiblePersonName.substring(0, indexOfSplitter);
         String lastName = responsiblePersonName.substring(indexOfSplitter + 1);
