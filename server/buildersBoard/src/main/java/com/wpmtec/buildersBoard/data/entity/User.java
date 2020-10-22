@@ -1,4 +1,4 @@
-package com.wpmtec.buildersBoard.entity.data;
+package com.wpmtec.buildersBoard.data.entity;
 
 import lombok.Data;
 

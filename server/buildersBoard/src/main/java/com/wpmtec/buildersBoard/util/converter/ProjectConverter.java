@@ -1,7 +1,7 @@
 package com.wpmtec.buildersBoard.util.converter;
 
-import com.wpmtec.buildersBoard.entity.data.Project;
-import com.wpmtec.buildersBoard.entity.data.User;
+import com.wpmtec.buildersBoard.data.entity.Project;
+import com.wpmtec.buildersBoard.data.entity.User;
 import com.wpmtec.buildersBoard.rest.controller.data.ProjectRestData;
 
 import java.text.ParseException;

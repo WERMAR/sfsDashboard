@@ -1,6 +1,6 @@
-package com.wpmtec.buildersBoard.entity.controller;
+package com.wpmtec.buildersBoard.data.repository;
 
-import com.wpmtec.buildersBoard.entity.data.Project;
+import com.wpmtec.buildersBoard.data.entity.Project;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

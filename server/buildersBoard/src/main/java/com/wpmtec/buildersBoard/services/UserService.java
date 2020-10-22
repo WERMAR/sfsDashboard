@@ -1,7 +1,7 @@
 package com.wpmtec.buildersBoard.services;
 
-import com.wpmtec.buildersBoard.entity.controller.UserJpaController;
-import com.wpmtec.buildersBoard.entity.data.User;
+import com.wpmtec.buildersBoard.data.repository.UserJpaController;
+import com.wpmtec.buildersBoard.data.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.wpmtec.buildersBoard.rest.controller.project;
 
-import com.wpmtec.buildersBoard.entity.data.Project;
-import com.wpmtec.buildersBoard.entity.data.User;
+import com.wpmtec.buildersBoard.data.entity.Project;
+import com.wpmtec.buildersBoard.data.entity.User;
 import com.wpmtec.buildersBoard.rest.controller.RestControllerInterface;
 import com.wpmtec.buildersBoard.rest.controller.data.ProjectRestData;
 import com.wpmtec.buildersBoard.services.ProjectService;
@@ -10,7 +10,6 @@ import com.wpmtec.buildersBoard.util.converter.ProjectConverter;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
 import javax.persistence.NoResultException;
 import javax.validation.ValidationException;
