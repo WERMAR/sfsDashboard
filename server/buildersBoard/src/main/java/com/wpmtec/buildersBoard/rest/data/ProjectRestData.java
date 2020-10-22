@@ -1,4 +1,4 @@
-package com.wpmtec.buildersBoard.rest.controller.data;
+package com.wpmtec.buildersBoard.rest.data;
 
 import lombok.Data;
 

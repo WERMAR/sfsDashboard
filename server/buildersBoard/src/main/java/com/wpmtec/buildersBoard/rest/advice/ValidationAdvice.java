@@ -1,19 +1,20 @@
-package com.wpmtec.buildersBoard.rest.controller.advice;
+package com.wpmtec.buildersBoard.rest.advice;
 
-import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ValidationException;
+
 @ControllerAdvice
-public class NullPointerAdvice {
+public class ValidationAdvice {
 
     @ResponseBody
-    @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    String exceptionHandler(NotFoundException ve) {
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String exceptionHandler(ValidationException ve) {
         return ve.getMessage();
     }
 }

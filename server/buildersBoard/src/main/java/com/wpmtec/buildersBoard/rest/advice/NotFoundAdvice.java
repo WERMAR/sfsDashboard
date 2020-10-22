@@ -1,4 +1,4 @@
-package com.wpmtec.buildersBoard.rest.controller.advice;
+package com.wpmtec.buildersBoard.rest.advice;
 
 import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;

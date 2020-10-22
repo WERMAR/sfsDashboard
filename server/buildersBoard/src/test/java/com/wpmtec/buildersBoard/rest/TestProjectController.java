@@ -1,9 +1,9 @@
-package com.wpmtec.buildersBoard.rest.controller;
+package com.wpmtec.buildersBoard.rest;
 
 import com.wpmtec.buildersBoard.data.repository.ProjectJpaController;
 import com.wpmtec.buildersBoard.data.repository.UserJpaController;
 import com.wpmtec.buildersBoard.data.entity.Project;
-import com.wpmtec.buildersBoard.rest.controller.project.ProjectController;
+import com.wpmtec.buildersBoard.rest.controller.impl.ProjectController;
 import com.wpmtec.buildersBoard.services.ProjectService;
 import com.wpmtec.buildersBoard.services.UserService;
 import org.junit.jupiter.params.ParameterizedTest;

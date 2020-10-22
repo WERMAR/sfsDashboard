@@ -1,20 +1,21 @@
-package com.wpmtec.buildersBoard.rest.controller.advice;
+package com.wpmtec.buildersBoard.rest.advice;
 
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.validation.ValidationException;
+import java.text.ParseException;
 
 @ControllerAdvice
-public class ValidationAdvice {
+public class ParseExceptionAdvice {
 
     @ResponseBody
-    @ExceptionHandler(ValidationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String exceptionHandler(ValidationException ve) {
-        return ve.getMessage();
+    @ExceptionHandler(ParseException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    String exceptionHandler(NotFoundException ve) {
+        return "5099 " + ve.getMessage();
     }
 }

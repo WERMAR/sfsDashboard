@@ -1,4 +1,4 @@
-package com.wpmtec.buildersBoard.rest.controller.user;
+package com.wpmtec.buildersBoard.rest.controller.impl;
 
 import com.wpmtec.buildersBoard.data.entity.User;
 import com.wpmtec.buildersBoard.services.UserService;
