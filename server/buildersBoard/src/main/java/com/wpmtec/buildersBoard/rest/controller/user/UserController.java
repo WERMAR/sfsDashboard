@@ -1,6 +1,6 @@
-package com.wpmtec.buildersBoard.rest.controller;
+package com.wpmtec.buildersBoard.rest.controller.user;
 
-import com.wpmtec.buildersBoard.data.entity.User;
+import com.wpmtec.buildersBoard.entity.data.User;
 import com.wpmtec.buildersBoard.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping("/forName")
     @ResponseBody
-    public User loadForName(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+    public List<User> loadForName(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
         return this.userService.loadForName(firstName, lastName);
     }
 

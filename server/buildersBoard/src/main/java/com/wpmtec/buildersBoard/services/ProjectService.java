@@ -1,22 +1,21 @@
 package com.wpmtec.buildersBoard.services;
 
-import com.wpmtec.buildersBoard.data.entity.Project;
-import com.wpmtec.buildersBoard.data.repository.ProjectRepository;
+import com.wpmtec.buildersBoard.entity.controller.ProjectJpaController;
+import com.wpmtec.buildersBoard.entity.data.Project;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class ProjectService {
 
-    private final ProjectRepository repository;
+    private final ProjectJpaController jpaController;
 
-    public ProjectService(ProjectRepository repository) {
-        this.repository = repository;
+    public ProjectService(ProjectJpaController jpaController) {
+        this.jpaController = jpaController;
     }
 
     /**
@@ -27,14 +26,14 @@ public class ProjectService {
      */
     public Project saveOrUpdate(Project project) {
         try {
-            Project searchedProject = repository.findByOrderNumber(project.getOrderNumber());
+            Project searchedProject = jpaController.getProjectForOrderNumber(project.getOrderNumber());
             if (searchedProject != null) {
                 project.setId(searchedProject.getId());
             }
         } catch (NoResultException nre) {
             log.info("No existing data record found for orderNumber: " + project.getOrderNumber() + " the object will be saved now");
         }
-        return repository.save(project);
+        return jpaController.saveOrUpdate(project);
     }
 
     /**
@@ -43,9 +42,7 @@ public class ProjectService {
      * @return - list of all projects
      */
     public List<Project> getAll() {
-        List<Project> returnList = new ArrayList<>();
-        repository.findAll().iterator().forEachRemaining(returnList::add);
-        return returnList;
+        return jpaController.getAll();
     }
 
     /**
@@ -55,15 +52,15 @@ public class ProjectService {
      * @return - project with param id
      */
     public Project getForId(Long id) {
-        return repository.findById(id).orElseThrow(NoResultException::new);
+        return jpaController.getProjectForId(id);
     }
 
     public Project getForOrderNumber(long orderNumber) {
-        return repository.findByOrderNumber(orderNumber);
+        return jpaController.getProjectForOrderNumber(orderNumber);
     }
 
 
     public void remove(Project project) {
-        repository.delete(project);
+        jpaController.remove(project);
     }
 }

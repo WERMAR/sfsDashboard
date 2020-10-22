@@ -1,4 +1,4 @@
-package com.wpmtec.buildersBoard.rest.advice;
+package com.wpmtec.buildersBoard.rest.controller.advice;
 
 import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.text.ParseException;
+
 @ControllerAdvice
-public class NullPointerAdvice {
+public class ParseExceptionAdvice {
 
     @ResponseBody
-    @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(ParseException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     String exceptionHandler(NotFoundException ve) {
-        return ve.getMessage();
+        return "5099 " + ve.getMessage();
     }
 }

@@ -1,4 +1,4 @@
-package com.wpmtec.buildersBoard.data.entity;
+package com.wpmtec.buildersBoard.entity.data;
 
 import com.sun.istack.Nullable;
 import lombok.Data;
@@ -11,6 +11,11 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "project")
+@NamedQueries({
+        @NamedQuery(name = "Project.getAll", query = "Select p from Project p"),
+        @NamedQuery(name = "Project.getForId", query = "Select p from Project p where p.id =:id"),
+        @NamedQuery(name = "Project.getForOrderNumber", query = "Select p from Project p where p.orderNumber = :orderNumber")
+})
 public class Project implements Serializable {
 
     @Id
