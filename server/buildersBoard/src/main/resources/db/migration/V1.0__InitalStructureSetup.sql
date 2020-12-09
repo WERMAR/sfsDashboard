@@ -1,6 +1,6 @@
 create schema if not exists builderBoard;
 
-create table builderBoard.project
+create table project
 (
     id           bigint not null auto_increment,
     order_number bigint not null,
