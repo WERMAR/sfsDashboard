@@ -1,9 +1,11 @@
 package com.ciphonix.buildersBoard.rest.controller.impl;
 
 import com.ciphonix.buildersBoard.data.entity.User;
+import com.ciphonix.buildersBoard.rest.data.UserRestData;
 import com.ciphonix.buildersBoard.services.UserService;
 import com.ciphonix.buildersBoard.util.ExceptionMessages;
 import com.ciphonix.buildersBoard.util.StreamUtilFactory;
+import com.ciphonix.buildersBoard.util.converter.UserConverter;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -47,13 +49,18 @@ public class UserController {
 
     @PostMapping
     @ResponseBody
-    public User create(User user) {
-        return this.userService.saveUser(user);
+    public UserRestData create(@RequestBody UserRestData userRestData) {
+        return UserConverter.toRest(this.userService.saveUser(UserConverter.toDB(userRestData)));
     }
 
     @PutMapping
     @ResponseBody
-    public User update(User user) {
-        return this.userService.saveUser(user);
+    public UserRestData update(@RequestBody UserRestData userRestData) {
+        return UserConverter.toRest(this.userService.saveUser(UserConverter.toDB(userRestData)));
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id) throws NotFoundException {
+        this.userService.delete(Long.parseLong(id));
     }
 }

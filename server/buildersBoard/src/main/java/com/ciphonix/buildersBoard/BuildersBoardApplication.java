@@ -1,6 +1,5 @@
 package com.ciphonix.buildersBoard;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,12 +9,12 @@ import java.util.TimeZone;
 @SpringBootApplication
 public class BuildersBoardApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(BuildersBoardApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(BuildersBoardApplication.class, args);
+    }
 
-  @PostConstruct
-  void started() {
-    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-  }
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 }
