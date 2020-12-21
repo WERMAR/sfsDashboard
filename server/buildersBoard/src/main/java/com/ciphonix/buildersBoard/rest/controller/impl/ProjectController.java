@@ -59,6 +59,7 @@ public class ProjectController {
      * @see Project
      * @see ProjectRestData
      * @see ProjectConverter#toRest(Project)
+     * @see StreamUtilFactory#generateStream(Iterable)
      */
     @GetMapping
     @ResponseBody
@@ -103,13 +104,13 @@ public class ProjectController {
      * @see Project
      * @see ProjectRestData
      * @see ProjectConverter#toDB(ProjectRestData, User)
-     * @see ProjectService#saveOrUpdate(Project)
+     * @see ProjectService#save(Project)
      */
     @PutMapping
     @ResponseBody
     public ProjectRestData update(@RequestBody ProjectRestData restData) throws ParseException {
         User user = getUserForData(restData.getResponsiblePersonName());
-        return ProjectConverter.toRest(projectService.saveOrUpdate(ProjectConverter.toDB(restData, user)));
+        return ProjectConverter.toRest(projectService.save(ProjectConverter.toDB(restData, user)));
     }
 
     /**
@@ -138,7 +139,7 @@ public class ProjectController {
             log.error("While converting ProjectRestData to ProjectData ParseException was thrown", e);
         }
         if (project != null && validateInput(project))
-            return ProjectConverter.toRest(projectService.saveOrUpdate(project));
+            return ProjectConverter.toRest(projectService.save(project));
         log.warn("Validation of data failed -> cause reminder configuration is wrong");
         throw new ValidationException("Reminder configuration is not valid");
     }

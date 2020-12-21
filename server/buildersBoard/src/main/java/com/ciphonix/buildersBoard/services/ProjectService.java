@@ -8,25 +8,46 @@ import org.springframework.stereotype.Service;
 import javax.persistence.NoResultException;
 import java.util.Optional;
 
+/**
+ * <h3>Description</h3>
+ * logical tier of {@link Project} - Process. It combines the RestController to the underlying DataRepository
+ *
+ * @author wermar
+ * @see ProjectRepository
+ * @see com.ciphonix.buildersBoard.rest.controller.impl.ProjectController
+ * @see Project
+ * @see Service
+ * @see Slf4j
+ */
 @Service
 @Slf4j
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
+    /**
+     * <h3>Description</h3>
+     * Default Constructor which is used from the Spring-Context to initialize the Service with Dependency Injection.
+     *
+     * @param projectRepository - data repository for {@link Project}
+     */
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     /**
-     * returns the created or updated project
+     * <h3>Description</h3>
+     * returns the saved project. First of all it will checked, if the project exists. It will check by the orderNumber from the given project. Returns the query an Project, the system update the record. If not, the dataRecord will be save.
      *
      * @param project - object that will be updated or created
      * @return - the created project
+     * @see Project
+     * @see ProjectRepository#existsByOrderNumber(Long) 
+     * @see ProjectRepository#findByOrderNumber(Long) 
+     * @see ProjectRepository#save(Object)
      */
-    public Project saveOrUpdate(Project project) {
+    public Project save(Project project) {
         try {
-
             Project searchedProject = projectRepository.findByOrderNumber(project.getOrderNumber());
             if (projectRepository.existsByOrderNumber(project.getOrderNumber())) {
                 project.setId(searchedProject.getId());

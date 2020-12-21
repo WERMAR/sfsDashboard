@@ -10,7 +10,7 @@ import javax.validation.ValidationException;
 import java.text.ParseException;
 
 /**
- * <h3>Short Description</h3>
+ * <h3>Description</h3>
  * This Advice works like an Interceptor. If the RestController throws an Exception while processing an request, this advice catch the exception and handle this.
  *
  * This Exception listen to {@link ValidationException} and returns the message of the exception. Additionally, the Handler add the Http-Code "BAD_REQUEST" (400).
