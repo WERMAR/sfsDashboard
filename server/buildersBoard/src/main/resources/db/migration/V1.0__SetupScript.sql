@@ -337,3 +337,24 @@ alter table contract_details
 
 alter table service_details
     add foreign key service_details (project) references project (id);
+
+
+
+-- initial data setup --
+-- first add user_roles: super_admin, admin, user
+-- second add user: super_admin
+-- third add user_details for super_admin
+-- fourth add layout_config for super_admin
+-- fifth add processing_month
+insert into user_role
+values (1, 'user', null),
+       (2, 'admin', 1),
+       (3, 'superAdmin', 2);
+
+insert into user
+values (1, 'superAdmin', 'super', 'admin', 3);
+
+insert into layout_config
+values (1, true, true, true, true, true);
+
+insert into user_details value (1, 1, 1);
