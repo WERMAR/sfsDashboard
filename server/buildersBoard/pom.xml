@@ -8,7 +8,7 @@
         <version>2.3.0.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.ciphonix</groupId>
+    <groupId>com.youmesh</groupId>
     <artifactId>buildersBoard</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>buildersBoard</name>

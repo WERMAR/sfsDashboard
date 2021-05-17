@@ -1,4 +1,5 @@
 -- create the core tables
+use builderBoard;
 
 create table user
 (
@@ -84,7 +85,7 @@ create table project
 (
     id                 bigint(20) not null,
     responsible_person bigint(20) not null,
-    isService          boolean    not null,
+    is_service         boolean    not null,
 
     -- add primary key
     constraint pk__project__id primary key project (id)
@@ -92,10 +93,10 @@ create table project
 
 create table customer
 (
-    id      bigint(20)   not null,
-    name    varchar(30)  not null,
-    logo    blob         null,
-    logoUrl varchar(255) null,
+    id       bigint(20)   not null,
+    name     varchar(30)  not null,
+    logo     blob         null,
+    logo_url varchar(255) null,
 
     -- add primary key
     constraint pk__customer__id primary key customer (id)
@@ -276,64 +277,64 @@ alter table user
     add foreign key user (user_role) references user_role (id);
 
 alter table user_details
-    add foreign key user_details (user) references user (id),
-    add foreign key user_details (layout_config) references layout_config (id);
+    add foreign key user_details_u (user) references user (id),
+    add foreign key user_details_lc (layout_config) references layout_config (id);
 
 alter table ql_2_ud
-    add foreign key ql_2_ud (ud_id) references user_details (id),
-    add foreign key ql_2_ud (ql_id) references quick_links (id);
+    add foreign key ql_2_ud_u (ud_id) references user_details (id),
+    add foreign key ql_2_ud_q (ql_id) references quick_links (id);
 
 alter table user_2_project
-    add foreign key user_2_project (project_id) references project (id),
-    add foreign key user_2_project (user_id) references user (id);
+    add foreign key user_2_project_p (project_id) references project (id),
+    add foreign key user_2_project_u (user_id) references user (id);
 
 alter table project
     add foreign key project (responsible_person) references user (id);
 
 alter table project_details
-    add foreign key project_details (project) references project (id),
-    add foreign key project_details (building) references building (id);
+    add foreign key project_details_p (project) references project (id),
+    add foreign key project_details_b (building) references building (id);
 
 alter table pd_2_hotelresv
-    add foreign key pd_2_hotelresv (project_details) references project_details (id),
-    add foreign key pd_2_hotelresv (hotel_reservation) references hotel_reservation (id);
+    add foreign key pd_2_hotelresv_p (project_details) references project_details (id),
+    add foreign key pd_2_hotelresv_h (hotel_reservation) references hotel_reservation (id);
 
 alter table files_2_hotel_resv
-    add foreign key files_2_hotel_resv (file_id) references files (id),
-    add foreign key files_2_hotel_resv (hotel_resv_id) references hotel_reservation (id);
+    add foreign key files_2_hotel_resv_f (file_id) references files (id),
+    add foreign key files_2_hotel_resv_h (hotel_resv_id) references hotel_reservation (id);
 
 alter table files_2_project_details
-    add foreign key files_2_project_details (file_id) references files (id),
-    add foreign key files_2_project_details (project_details_id) references project_details (id);
+    add foreign key files_2_project_details_f (file_id) references files (id),
+    add foreign key files_2_project_details_p (project_details_id) references project_details (id);
 
 alter table files
     add foreign key files (file_category) references file_category (id);
 
 alter table material_2_project
-    add foreign key material_2_project (material) references material (id),
-    add foreign key material_2_project (project_details) references project_details (id);
+    add foreign key material_2_project_m (material) references material (id),
+    add foreign key material_2_project_p (project_details) references project_details (id);
 
 alter table material_2_service
-    add foreign key material_2_service (material) references material (id),
-    add foreign key material_2_service (service_details) references service_details (id);
+    add foreign key material_2_service_m (material) references material (id),
+    add foreign key material_2_service_s (service_details) references service_details (id);
 
 alter table building
     add foreign key building (customer) references customer (id);
 
 alter table files_2_service_details
-    add foreign key files_2_service_details (file_id) references files (id),
-    add foreign key files_2_service_details (service_details_id) references service_details (id);
+    add foreign key files_2_service_details_f (file_id) references files (id),
+    add foreign key files_2_service_details_s (service_details_id) references service_details (id);
 
 alter table planned_month_to_systems
-    add foreign key planned_month_to_systems (st_id) references system_types (id),
-    add foreign key planned_month_to_systems (pq_id) references processing_month (id);
+    add foreign key planned_month_to_systems_st (st_id) references system_types (id),
+    add foreign key planned_month_to_systems_pq (pq_id) references processing_month (id);
 
 alter table system_types
     add foreign key system_types (contract_details) references contract_details (id);
 
 alter table contract_details
-    add foreign key contract_details (service_details) references service_details (id),
-    add foreign key contract_details (technician) references user (id);
+    add foreign key contract_details_sd (service_details) references service_details (id),
+    add foreign key contract_details_t (technician) references user (id);
 
 alter table service_details
     add foreign key service_details (project) references project (id);
